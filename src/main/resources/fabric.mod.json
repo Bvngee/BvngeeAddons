@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "bvngeeaddons",
+  "version": "${version}",
+  "name": "BvngeeAddons",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/BvngeeAddons/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "main": [
+      "bvngeeaddons.BvngeeAddons"
+    ]
+  },
+  "mixins": [
+    "BvngeeAddons.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.13.3",
+    "fabric": "*",
+    "minecraft": "1.17.x"
+  }
+}
