@@ -6,7 +6,7 @@
   "mixins": [
   ],
   "client": [
-    "emptyBottleFix.ClientPlayerInteractionManagerMixin"
+    "emptyBottleFix.CauldronBehaviorMixin"
   ],
   "injectors": {
     "defaultRequire": 1

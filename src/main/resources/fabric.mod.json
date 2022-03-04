@@ -3,15 +3,20 @@
   "id": "bvngeeaddons",
   "version": "${version}",
   "name": "BvngeeAddons",
-  "description": "",
-  "authors": [],
-  "contact": {},
+  "description": "A random assortment of addons I thought I should add",
+  "authors": ["BvngeeCord"],
+  "contact": {
+    "sources": "https://github.com/BvngeeCord/BvngeeAddons"
+  },
   "license": "MIT",
-  "icon": "assets/BvngeeAddons/icon.png",
+  "icon": "assets/BvngeeAddons/bvngeeaddons.jpg",
   "environment": "client",
   "entrypoints": {
-    "main": [
+    "client": [
       "bvngeeaddons.BvngeeAddons"
+    ],
+    "modmenu": [
+      "bvngeeaddons.compat.modmenu.ModMenuApiImpl"
     ]
   },
   "mixins": [
@@ -20,6 +25,7 @@
   "depends": {
     "fabricloader": ">=0.13.3",
     "fabric": "*",
-    "minecraft": "1.17.x"
+    "minecraft": "1.17.x",
+    "malilib": "*"
   }
 }
