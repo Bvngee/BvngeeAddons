@@ -1,9 +1,20 @@
 package bvngeeaddons.gui;
 
 import bvngeeaddons.BvngeeAddons;
+import bvngeeaddons.config.Config;
+import bvngeeaddons.config.options.BvngeeAddonsConfigInteger;
+import fi.dy.masa.malilib.config.IConfigBase;
+import fi.dy.masa.malilib.gui.GuiBase;
 import fi.dy.masa.malilib.gui.GuiConfigsBase;
+import fi.dy.masa.malilib.hotkeys.IKeybind;
+import fi.dy.masa.malilib.hotkeys.KeyAction;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BvngeeAddonsConfigGui extends GuiConfigsBase {
+
+    private static Config.Category category = Config.Category.FEATURES;
 
     public BvngeeAddonsConfigGui(){
         super(10, 50, BvngeeAddons.MOD_ID, null, "TITELLL", BvngeeAddons.MOD_VERSION);
@@ -14,4 +25,15 @@ public class BvngeeAddonsConfigGui extends GuiConfigsBase {
         super.initGui();
     }
 
+    @Override
+    public List<ConfigOptionWrapper> getConfigs() {
+        List<IConfigBase> configs = new ArrayList<>();
+        configs.add(new BvngeeAddonsConfigInteger("test", 0, 0, 100, true));
+        return ConfigOptionWrapper.createFor(configs);
+    }
+
+    public static boolean onOpenGui(KeyAction keyAction, IKeybind iKeybind){
+        GuiBase.openGui(new BvngeeAddonsConfigGui());
+        return true;
+    }
 }
