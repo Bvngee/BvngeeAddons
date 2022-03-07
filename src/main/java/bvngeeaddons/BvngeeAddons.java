@@ -1,8 +1,10 @@
 package bvngeeaddons;
 
+import bvngeeaddons.config.BvngeeAddonsConfigStorage;
 import bvngeeaddons.config.BvngeeAddonsFeatures;
 import bvngeeaddons.config.KeybindProvider;
 import bvngeeaddons.utils.JsonUtils;
+import fi.dy.masa.malilib.config.ConfigManager;
 import fi.dy.masa.malilib.event.InitializationHandler;
 import fi.dy.masa.malilib.event.InputEventHandler;
 import net.fabricmc.api.ModInitializer;
@@ -17,15 +19,12 @@ public class BvngeeAddons implements ModInitializer {
     @Override
     public void onInitialize() {
 
-        JsonUtils.createConfigIfAbsent();
+        JsonUtils.getConfigFile();
 
         MOD_VERSION = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow(RuntimeException::new).getMetadata().getVersion().getFriendlyString();
 
-        //malilib stuff
         InitializationHandler.getInstance().registerInitializationHandler(() -> {
-
-            //ConfigManager.getInstance().registerConfigHandler(MOD_ID, new TweakerMoreConfigStorage());
-
+            ConfigManager.getInstance().registerConfigHandler(MOD_ID, new BvngeeAddonsConfigStorage());
             InputEventHandler.getKeybindManager().registerKeybindProvider(new KeybindProvider());
 
             BvngeeAddonsFeatures.initCallbacks();

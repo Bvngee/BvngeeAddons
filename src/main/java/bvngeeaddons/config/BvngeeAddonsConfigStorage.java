@@ -16,14 +16,14 @@ public class BvngeeAddonsConfigStorage implements IConfigHandler {
     public static void saveToFile(){
 
         JsonObject root = new JsonObject();
-        final List<BvngeeAddonsOption> options = BvngeeAddonsFeatures.getOptions();
+        //final List<BvngeeAddonsOption> options = BvngeeAddonsFeatures.getOptions();
 
-        final List<BvngeeAddonsOption> featureOptions = options.stream().filter(k -> k.getType() == Config.Type.GENERIC).toList();
-        final List<BvngeeAddonsOption> fixOptions = options.stream().filter(k -> k.getType() == Config.Type.DISABLE).toList();
-        final List<BvngeeAddonsOption> settingOptions = options.stream().filter(k -> k.getType() == Config.Type.LIST).toList();
-        final List<BvngeeAddonsOption> hotkeyOptions = options.stream().filter(k -> k.getType() == Config.Type.HOTKEY).toList();
+        //final List<BvngeeAddonsOption> featureOptions = options.stream().filter(k -> k.getType() == Config.Type.GENERIC).toList();
+        //final List<BvngeeAddonsOption> fixOptions = options.stream().filter(k -> k.getType() == Config.Type.DISABLE).toList();
+        //final List<BvngeeAddonsOption> settingOptions = options.stream().filter(k -> k.getType() == Config.Type.LIST).toList();
+        //final List<BvngeeAddonsOption> hotkeyOptions = options.stream().filter(k -> k.getType() == Config.Type.HOTKEY).toList();
 
-        ConfigUtils.writeConfigBase(root, "Features", featureOptions);
+        //ConfigUtils.writeConfigBase(root, "Features", featureOptions);
 
     }
 

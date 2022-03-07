@@ -31,6 +31,7 @@ public class BvngeeAddonsFeatures {
     @Config(value = Config.Type.HOTKEY, category = Config.Category.SETTING)
     public static final BvngeeAddonsConfigHotkey BVNGEE_ADDONS_OPEN_GUI = new BvngeeAddonsConfigHotkey("openBvngeeAddonsGui", "B,C");
 
+
     private static final List<BvngeeAddonsOption> bvngeeAddonsOptions = initOptions();
 
     public static void initCallbacks(){
