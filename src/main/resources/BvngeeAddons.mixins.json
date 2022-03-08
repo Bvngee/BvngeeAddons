@@ -6,7 +6,8 @@
   "mixins": [
   ],
   "client": [
-    "emptyBottleFix.CauldronBehaviorMixin"
+    "creativeInteractCauldronFix.CauldronBehaviorMixin",
+    "removeAutoJumpButtons.ControlsOptionsScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1

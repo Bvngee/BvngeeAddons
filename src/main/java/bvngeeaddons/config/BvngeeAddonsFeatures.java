@@ -16,9 +16,12 @@ public class BvngeeAddonsFeatures {
     //----------------FIXES-----------------
 
     @Config(type = Config.Type.GENERIC, category = Config.Category.FIXES)
-    public static final BvngeeAddonsConfigBoolean emptyBottleFix = new BvngeeAddonsConfigBoolean("emptyBottleFix", false);
+    public static final BvngeeAddonsConfigBoolean creativeInteractCauldronFix = new BvngeeAddonsConfigBoolean("emptyBottleFix", false);
 
     //---------------FEATURES---------------
+
+    @Config(type = Config.Type.GENERIC, category = Config.Category.FEATURES)
+    public static final BvngeeAddonsConfigBoolean removeAutoJumpButtons = new BvngeeAddonsConfigBoolean("removeAutoJumpButtons", false);
 
     //@Config(type = Config.Type.GENERIC, category = Config.Category.FEATURES)
     //public static final BvngeeAddonsConfigInteger TEST_INTEGER = new BvngeeAddonsConfigInteger("testInt", 0, 0, 100, false);
