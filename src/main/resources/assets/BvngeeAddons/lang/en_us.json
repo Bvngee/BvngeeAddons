@@ -1,3 +1,6 @@
 {
-
+  "bvngeeaddons.gui.config_type.generic": "Generic",
+  "bvngeeaddons.gui.config_type.hotkey": "Hotkey",
+  "bvngeeaddons.gui.config_type.list": "List",
+  "bvngeeaddons.gui.config_type.disable": "Disable"
 }

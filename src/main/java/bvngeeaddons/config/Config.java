@@ -11,20 +11,21 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 public @interface Config {
 
-    Type value();
+    Type type();
 
     Category category() /* default Category.FEATURES*/;
 
     enum Type implements IStringValue{
-        GENERIC, HOTKEY, LIST, DISABLE;
+        GENERIC, HOTKEY, LIST, DISABLE, TWEAK;
         @Override
         public String getStringValue() {
             return StringUtils.translate("bvngeeaddons.gui.config_type." + this.name().toLowerCase());
         }
+
     }
 
     enum Category{
-        FIXES, FEATURES, SETTING;
+        FIXES, FEATURES, SETTINGS;
         public String getDisplayName(){
             return StringUtils.translate("bvngeeaddons.gui.config_category." + this.name().toLowerCase());
         }

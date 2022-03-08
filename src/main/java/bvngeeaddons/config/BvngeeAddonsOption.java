@@ -13,7 +13,7 @@ public class BvngeeAddonsOption {
     }
 
     public Config.Type getType(){
-        return type.value();
+        return type.type();
     }
 
     public Config.Category getCategory(){

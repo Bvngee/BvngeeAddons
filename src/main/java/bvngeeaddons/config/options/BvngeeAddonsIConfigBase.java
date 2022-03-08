@@ -7,5 +7,6 @@ public interface BvngeeAddonsIConfigBase extends IConfigBase {
 
     String BVNGEEADDONS_NAMESPACE_PREFIX = BvngeeAddons.MOD_ID + ".config.";
     String COMMENT_SUFFIX = ".comment";
+    String PRETTY_NAME_SUFFIX = ".pretty_name";
 
 }

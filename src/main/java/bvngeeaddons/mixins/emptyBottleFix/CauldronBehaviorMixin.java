@@ -1,5 +1,6 @@
 package bvngeeaddons.mixins.emptyBottleFix;
 
+import bvngeeaddons.config.BvngeeAddonsFeatures;
 import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -15,7 +16,7 @@ public interface CauldronBehaviorMixin {
     private static void potionEmptyCauldron(Args args){
         ItemStack original = args.get(0);
         PlayerEntity player = args.get(1);
-        if (player.getAbilities().creativeMode) args.set(2, original);
+        if (BvngeeAddonsFeatures.emptyBottleFix.getBooleanValue() && player.getAbilities().creativeMode) args.set(2, original);
     }
 
 }

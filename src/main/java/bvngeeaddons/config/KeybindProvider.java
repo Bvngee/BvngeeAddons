@@ -10,7 +10,7 @@ import java.util.List;
 public class KeybindProvider implements IKeybindProvider {
 
     //do stuff with the hotkeys from rules that have hotkeys
-    List<IHotkey> HOTKEYS = BvngeeAddonsFeatures.getOptions().stream().filter(k -> k instanceof IHotkey).map(k -> (IHotkey)k.getConfig()).toList();
+    private final List<IHotkey> HOTKEYS = BvngeeAddonsFeaturesHandler.getFeaturesOfType(Config.Type.HOTKEY);
 
     @Override
     public void addKeysToMap(IKeybindManager manager) {
