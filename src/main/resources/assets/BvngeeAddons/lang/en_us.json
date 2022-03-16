@@ -2,5 +2,10 @@
   "bvngeeaddons.gui.config_type.generic": "Generic",
   "bvngeeaddons.gui.config_type.hotkey": "Hotkey",
   "bvngeeaddons.gui.config_type.list": "List",
-  "bvngeeaddons.gui.config_type.disable": "Disable"
+  "bvngeeaddons.gui.config_type.disable": "Disable",
+
+  "bvngeeaddons.gui.block_sounds_options_screen": "Block Sounds",
+
+  "bvngeeaddons.config.creativeInteractCauldronFix.comment": "No more bottles or buckets added to your inventory when interacting with cauldrons in creative! Idea: schmoe_mc",
+  "bvngeeaddons.config.removeAutoJumpButton.comment": "Removes the Auto Jump button and disables Auto Jump. Cuz why the fuck not?"
 }

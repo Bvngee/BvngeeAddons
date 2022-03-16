@@ -2,13 +2,6 @@ package bvngeeaddons.config;
 
 import bvngeeaddons.config.options.*;
 import bvngeeaddons.gui.BvngeeAddonsConfigGui;
-import com.sun.jna.platform.win32.COM.util.annotation.ComInterface;
-import fi.dy.masa.malilib.util.restrictions.UsageRestriction;
-
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class BvngeeAddonsFeatures {
 
@@ -21,7 +14,7 @@ public class BvngeeAddonsFeatures {
     //---------------FEATURES---------------
 
     @Config(type = Config.Type.GENERIC, category = Config.Category.FEATURES)
-    public static final BvngeeAddonsConfigBoolean removeAutoJumpButtons = new BvngeeAddonsConfigBoolean("removeAutoJumpButtons", false);
+    public static final BvngeeAddonsConfigBoolean removeAutoJumpButton = new BvngeeAddonsConfigBoolean("removeAutoJumpButtons", false);
 
     //@Config(type = Config.Type.GENERIC, category = Config.Category.FEATURES)
     //public static final BvngeeAddonsConfigInteger TEST_INTEGER = new BvngeeAddonsConfigInteger("testInt", 0, 0, 100, false);
