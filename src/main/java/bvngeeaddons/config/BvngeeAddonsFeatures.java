@@ -1,5 +1,6 @@
 package bvngeeaddons.config;
 
+import bvngeeaddons.config.listEntries.BossBarRenderMode;
 import bvngeeaddons.config.options.*;
 import bvngeeaddons.gui.BvngeeAddonsConfigGui;
 
@@ -11,37 +12,30 @@ public class BvngeeAddonsFeatures {
     @Config(type = Config.Type.GENERIC, category = Config.Category.FIXES)
     public static final BvngeeAddonsConfigBoolean creativeInteractCauldronFix = new BvngeeAddonsConfigBoolean("emptyBottleFix", false);
 
+
     //---------------FEATURES---------------
 
     @Config(type = Config.Type.GENERIC, category = Config.Category.FEATURES)
     public static final BvngeeAddonsConfigBoolean removeAutoJumpButton = new BvngeeAddonsConfigBoolean("removeAutoJumpButtons", false);
 
+    @Config(type = Config.Type.GENERIC, category = Config.Category.FEATURES)
+    public static final BvngeeAddonsConfigOptionList bossBarRenderMode_old = new BvngeeAddonsConfigOptionList("bossBarRenderMode", BossBarRenderMode.DEFAULT);
     //@Config(type = Config.Type.GENERIC, category = Config.Category.FEATURES)
-    //public static final BvngeeAddonsConfigInteger TEST_INTEGER = new BvngeeAddonsConfigInteger("testInt", 0, 0, 100, false);
+    //public static final BvngeeAddonsConfigOptionListHotkeyed bossBarRenderMode = new BossBarRende
 
-    //@Config(type = Config.Type.LIST, category = Config.Category.FEATURES)
-    //public static final BvngeeAddonsConfigOptionList TEST_LIST = new BvngeeAddonsConfigOptionList("testList", UsageRestriction.ListType.NONE);
-
-    //@Config(type = Config.Type.TWEAK, category = Config.Category.FEATURES)
-    //public static final BvngeeAddonsConfigBooleanHotkeyed TEST_BOOL_HOTKEYED = new BvngeeAddonsConfigBooleanHotkeyed("testBoolHotkeyed_BY", false, "B,Y");
-
-    //@Config(type = Config.Type.DISABLE, category = Config.Category.FEATURES)
-    //public static final BvngeeAddonsConfigBooleanHotkeyed TEST_BOOL_HOTKEYED2 = new BvngeeAddonsConfigBooleanHotkeyed("testBoolHotkeyed2_BN", false, "B,N");
 
     //---------------SETTINGS----------------
 
     @Config(type = Config.Type.HOTKEY, category = Config.Category.SETTINGS)
-    public static final BvngeeAddonsConfigHotkey BVNGEE_ADDONS_OPEN_GUI = new BvngeeAddonsConfigHotkey("openBvngeeAddonsGui", "B,C");
+    public static final BvngeeAddonsConfigHotkey bvngeeAddonsOpenGui = new BvngeeAddonsConfigHotkey("openBvngeeAddonsGui", "B,C");
 
-//    static {
-//        BvngeeAddonsFeaturesHandler.initOptions();
-//    }
 
     //move to handler? not sure yet
     public static void initCallbacks(){
 
         //Hotkeys
-        BVNGEE_ADDONS_OPEN_GUI.getKeybind().setCallback(BvngeeAddonsConfigGui::onOpenGui);
+        bvngeeAddonsOpenGui.getKeybind().setCallback(BvngeeAddonsConfigGui::onOpenGui);
+
 
     }
 

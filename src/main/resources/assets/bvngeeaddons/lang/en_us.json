@@ -1,0 +1,19 @@
+{
+  "bvngeeaddons.gui.config_type.generic": "Generic",
+  "bvngeeaddons.gui.config_type.hotkey": "Hotkey",
+  "bvngeeaddons.gui.config_type.list": "List",
+  "bvngeeaddons.gui.config_type.disable": "Disable",
+  "bvngeeaddons.gui.config_category.features": "Features",
+  "bvngeeaddons.gui.config_category.fixes": "Fixes",
+  "bvngeeaddons.gui.config_category.settings": "Settings",
+
+  "bvngeeaddons.config.boss_bar_render_mode.default": "Default",
+  "bvngeeaddons.config.boss_bar_render_mode.compact": "Compact",
+  "bvngeeaddons.config.boss_bar_render_mode.none": "None",
+
+  "bvngeeaddons.gui.blockSoundsOptionsScreen": "Block Sounds",
+
+  "bvngeeaddons.config.creativeInteractCauldronFix.comment": "No more bottles or buckets added to your inventory when interacting with cauldrons in creative! Idea: schmoe_mc",
+  "bvngeeaddons.config.removeAutoJumpButton.comment": "Removes the Auto Jump button and disables Auto Jump. Cuz why the fuck not?",
+  "bvngeeaddons.config.bossBarRenderMode.comment": "Compact renders only 1 boss bar + total boss count, None disables boss bars entirely"
+}

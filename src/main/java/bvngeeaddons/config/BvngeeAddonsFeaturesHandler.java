@@ -11,8 +11,7 @@ public class BvngeeAddonsFeaturesHandler {
     private static final List<BvngeeAddonsOption> OPTIONS = new ArrayList<>();
     private static final List<BvngeeAddonsIConfigBase> CONFIGS = new ArrayList<>();
     private static final Map<Config.Type, List<BvngeeAddonsOption>> TYPE_TO_OPTION = new LinkedHashMap<>();
-
-
+    private static final Map<Config.Category, List<BvngeeAddonsOption>> CATEGORY_TO_OPTION = new LinkedHashMap<>();
 
     public static void initOptions(){
         for (Field field : BvngeeAddonsFeatures.class.getDeclaredFields()){
@@ -26,25 +25,35 @@ public class BvngeeAddonsFeaturesHandler {
                         OPTIONS.add(option);
                         CONFIGS.add(option.getConfig());
                         TYPE_TO_OPTION.computeIfAbsent(annotation.type(), k -> new ArrayList<>()).add(option);
-
+                        CATEGORY_TO_OPTION.computeIfAbsent(annotation.category(), k -> new ArrayList<>()).add(option);
 
                     }
                 }catch (IllegalAccessException e){
                     e.printStackTrace();
                 }
-
             }
         }
     }
 
     public static List<BvngeeAddonsOption> getOptionsOfType(Config.Type type){
-        List<BvngeeAddonsOption> options = TYPE_TO_OPTION.get(type);
+        final List<BvngeeAddonsOption> options = TYPE_TO_OPTION.get(type);
         return options == null ? new ArrayList<>() : options;
     }
 
     @SuppressWarnings("unchecked")
     public static <T extends IConfigBase> List<T> getFeaturesOfType(Config.Type type){
-        List<T> features = (List<T>) getOptionsOfType(type).stream().map(BvngeeAddonsOption::getConfig).toList();
+        final List<T> features = (List<T>) getOptionsOfType(type).stream().map(BvngeeAddonsOption::getConfig).toList();
+        return features == null ? new ArrayList<>() : features;
+    }
+
+    public static List<BvngeeAddonsOption> getOptionsOfCategory(Config.Category category){
+        final List<BvngeeAddonsOption> options = CATEGORY_TO_OPTION.get(category);
+        return options == null ? new ArrayList<>() : options;
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T extends IConfigBase> List<T> getFeaturesOfCategory(Config.Category category){
+        final List<T> features = (List<T>) getOptionsOfCategory(category).stream().map(BvngeeAddonsOption::getConfig).toList();
         return features == null ? new ArrayList<>() : features;
     }
 

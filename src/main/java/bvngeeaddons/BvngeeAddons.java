@@ -7,17 +7,17 @@ import bvngeeaddons.config.KeybindProvider;
 import fi.dy.masa.malilib.config.ConfigManager;
 import fi.dy.masa.malilib.event.InitializationHandler;
 import fi.dy.masa.malilib.event.InputEventHandler;
-import net.fabricmc.api.ModInitializer;
+import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 
-public class BvngeeAddons implements ModInitializer {
+public class BvngeeAddons implements ClientModInitializer {
 
     public static final String MOD_ID = "bvngeeaddons";
     public static final String MOD_NAME = "BvngeeAddons";
     public static String MOD_VERSION = "unknown";
 
     @Override
-    public void onInitialize() {
+    public void onInitializeClient() {
 
         MOD_VERSION = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow(RuntimeException::new).getMetadata().getVersion().getFriendlyString();
 

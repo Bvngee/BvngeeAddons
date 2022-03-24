@@ -12,7 +12,7 @@
   "icon": "assets/BvngeeAddons/bvngeeaddons.jpg",
   "environment": "client",
   "entrypoints": {
-    "main": [
+    "client": [
       "bvngeeaddons.BvngeeAddons"
     ],
     "modmenu": [
