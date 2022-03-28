@@ -21,7 +21,8 @@ public class BvngeeAddonsFeatures {
     @Config(type = Config.Type.GENERIC, category = Config.Category.FEATURES)
     public static final BvngeeAddonsConfigOptionList bossBarRenderMode_old = new BvngeeAddonsConfigOptionList("bossBarRenderMode", BossBarRenderMode.DEFAULT);
     @Config(type = Config.Type.GENERIC, category = Config.Category.FEATURES)
-    public static final BvngeeAddonsConfigOptionListHotkeyed bossBarRenderMode = new BvngeeAddonsConfigOptionListHotkeyed("bossBarRenderMode", "", BossBarRenderMode.values(), BossBarRenderMode.DEFAULT);
+    public static final BvngeeAddonsConfigOptionListHotkeyed bossBarRenderMode = new BvngeeAddonsConfigOptionListHotkeyed("bossBarRenderMode", BossBarRenderMode.DEFAULT, "");
+    //public static final BvngeeAddonsConfigOptionListHotkeyed bossBarRenderMode = new BvngeeAddonsConfigOptionListHotkeyed("bossBarRenderMode", "", BossBarRenderMode.stringValues(), BossBarRenderMode.DEFAULT.getStringValue(), BossBarRenderMode.DEFAULT.getDisplayName());
 
 
     //---------------SETTINGS----------------
