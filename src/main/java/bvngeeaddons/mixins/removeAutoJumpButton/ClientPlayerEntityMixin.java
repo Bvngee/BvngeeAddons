@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ClientPlayerEntityMixin {
 
     @Inject(method = "autoJump", at = @At("HEAD"), cancellable = true)
-    private void injected(float dx, float dz, CallbackInfo ci){
+    private void cancelAutoJump(float dx, float dz, CallbackInfo ci){
         if (BvngeeAddonsFeatures.removeAutoJumpButton.getBooleanValue()) ci.cancel();
     }
 

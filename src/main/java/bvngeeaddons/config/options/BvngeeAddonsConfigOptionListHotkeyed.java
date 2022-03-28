@@ -4,14 +4,13 @@ import com.google.gson.JsonElement;
 import fi.dy.masa.malilib.config.IConfigOptionListEntry;
 import fi.dy.masa.malilib.config.options.ConfigOptionList;
 
-
 public class BvngeeAddonsConfigOptionListHotkeyed extends ConfigOptionList implements BvngeeAddonsIConfigBase {
 
     private final BvngeeAddonsConfigHotkey hotkey;
 
-    public BvngeeAddonsConfigOptionListHotkeyed(String name, IConfigOptionListEntry defaultValue, String defaultStorageString){
+    public BvngeeAddonsConfigOptionListHotkeyed(String name, IConfigOptionListEntry defaultValue, BvngeeAddonsConfigHotkey hotkey) {
         super(name, defaultValue, BVNGEEADDONS_NAMESPACE_PREFIX + name + COMMENT_SUFFIX);
-        this.hotkey = new BvngeeAddonsConfigHotkey(name, defaultStorageString);
+        this.hotkey = hotkey;
     }
 
     public BvngeeAddonsConfigHotkey getHotkey() {
