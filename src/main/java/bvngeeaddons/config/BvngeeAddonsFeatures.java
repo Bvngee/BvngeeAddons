@@ -19,8 +19,8 @@ public class BvngeeAddonsFeatures {
     @Config(type = Config.Type.GENERIC, category = Config.Category.FEATURES)
     public static final BvngeeAddonsConfigBoolean removeAutoJumpButton = new BvngeeAddonsConfigBoolean("removeAutoJumpButtons", false);
 
-    @Config(type = Config.Type.GENERIC, category = Config.Category.FEATURES)
-    public static final BvngeeAddonsConfigOptionList bossBarRenderMode_old = new BvngeeAddonsConfigOptionList("bossBarRenderMode", BossBarRenderMode.DEFAULT);
+    //@Config(type = Config.Type.GENERIC, category = Config.Category.FEATURES)
+    //public static final BvngeeAddonsConfigOptionList bossBarRenderMode_old = new BvngeeAddonsConfigOptionList("bossBarRenderMode", BossBarRenderMode.DEFAULT);
 
     @Config(type = Config.Type.GENERIC, category = Config.Category.SETTINGS)
     private static final BvngeeAddonsConfigHotkey bossBarRenderModeHotkey = new BvngeeAddonsConfigHotkey("bossBarRenderMode", "");

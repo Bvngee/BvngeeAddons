@@ -12,8 +12,6 @@ import java.io.File;
 
 public class BvngeeAddonsConfigStorage implements IConfigHandler {
 
-    //private static JsonObject ROOT_JSON_OBJ = new JsonObject();
-
     @Override
     public void load() {
         File configFile = getConfigFile();

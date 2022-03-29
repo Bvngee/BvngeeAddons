@@ -1,5 +1,7 @@
 package bvngeeaddons.config;
 
+import bvngeeaddons.config.options.BvngeeAddonsConfigHotkey;
+import bvngeeaddons.config.options.BvngeeAddonsConfigOptionListHotkeyed;
 import bvngeeaddons.config.options.BvngeeAddonsIConfigBase;
 import fi.dy.masa.malilib.config.IConfigBase;
 
@@ -22,10 +24,19 @@ public class BvngeeAddonsFeaturesHandler {
                     if (config instanceof BvngeeAddonsIConfigBase){
                         BvngeeAddonsOption option = new BvngeeAddonsOption(annotation, (BvngeeAddonsIConfigBase) config);
                         //annotation is the Config.Type, config is the actual config
-                        OPTIONS.add(option);
-                        CONFIGS.add(option.getConfig());
-                        TYPE_TO_OPTION.computeIfAbsent(annotation.type(), k -> new ArrayList<>()).add(option);
-                        CATEGORY_TO_OPTION.computeIfAbsent(annotation.category(), k -> new ArrayList<>()).add(option);
+
+                        if(config instanceof BvngeeAddonsConfigOptionListHotkeyed){
+                            BvngeeAddonsConfigHotkey hotkey = ((BvngeeAddonsConfigOptionListHotkeyed) config).getHotkey();
+                            OPTIONS.add(new BvngeeAddonsOption(, hotkey));
+                            CONFIGS.add(hotkey);
+                            TYPE_TO_OPTION.computeIfAbsent(annotation.type(), k -> new ArrayList<>()).add(option);
+                            CATEGORY_TO_OPTION.computeIfAbsent(annotation.category(), k -> new ArrayList<>()).add(option);
+                        }else {
+                            OPTIONS.add(option);
+                            CONFIGS.add(option.getConfig());
+                            TYPE_TO_OPTION.computeIfAbsent(annotation.type(), k -> new ArrayList<>()).add(option);
+                            CATEGORY_TO_OPTION.computeIfAbsent(annotation.category(), k -> new ArrayList<>()).add(option);
+                        }
 
                     }
                 }catch (IllegalAccessException e){
