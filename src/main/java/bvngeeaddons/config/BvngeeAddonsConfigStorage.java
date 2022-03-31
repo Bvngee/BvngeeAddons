@@ -24,7 +24,7 @@ public class BvngeeAddonsConfigStorage implements IConfigHandler {
                 ConfigUtils.readConfigBase(root, "GenericHotkeys", BvngeeAddonsFeaturesHandler.getFeaturesOfType(Config.Type.HOTKEY));
                 ConfigUtils.readConfigBase(root, "List", BvngeeAddonsFeaturesHandler.getFeaturesOfType(Config.Type.LIST));
                 ConfigUtils.readHotkeyToggleOptions(root, "TweakHotkey", "TweakToggles", BvngeeAddonsFeaturesHandler.getFeaturesOfType(Config.Type.TWEAK));
-                ConfigUtils.readHotkeyToggleOptions(root, "TweakHotkey", "TweakToggles", BvngeeAddonsFeaturesHandler.getFeaturesOfType(Config.Type.TWEAK));
+                ConfigUtils.readHotkeyToggleOptions(root, "DisableHotkey", "TweakToggles", BvngeeAddonsFeaturesHandler.getFeaturesOfType(Config.Type.DISABLE));
             }
         }
     }
