@@ -1,31 +1,50 @@
 package bvngeeaddons.config.options;
 
+import bvngeeaddons.config.Config;
 import com.google.gson.JsonElement;
 import fi.dy.masa.malilib.config.ConfigType;
 import org.jetbrains.annotations.Nullable;
 
-public class BvngeeAddonsNestedConfigs {
+public class BvngeeAddonsNestedConfigs implements BvngeeAddonsIConfigBase {
 
-    private final BvngeeAddonsIConfigBase config1;
-    private final BvngeeAddonsIConfigBase config2;
-    private final String name;
+    public final BvngeeAddonsIConfigBase config1;
+    public final BvngeeAddonsIConfigBase config2;
+//    private final String name;
 
-    public BvngeeAddonsNestedConfigs(String name, BvngeeAddonsIConfigBase config1, BvngeeAddonsIConfigBase config2){
+    public BvngeeAddonsNestedConfigs(BvngeeAddonsIConfigBase config1, BvngeeAddonsIConfigBase config2) {
         this.config1 = config1;
         this.config2 = config2;
-        this.name = name;
+//        this.name = name;
     }
 
-    public BvngeeAddonsIConfigBase getConfig(int config) {
-        switch(config) {
-            case 1 -> { return config1; }
-            case 2 -> { return config2; }
-            default -> { return null; }
-        }
+    @Override
+    public ConfigType getType() {
+        return null;
     }
 
+    @Override
     public String getName() {
-        return this.name;
+        return null;
     }
+
+    @Nullable
+    @Override
+    public String getComment() {
+        return null;
+    }
+
+    @Override
+    public void setValueFromJsonElement(JsonElement element) {
+
+    }
+
+    @Override
+    public JsonElement getAsJsonElement() {
+        return null;
+    }
+
+//    public String getName() {
+//        return this.name;
+//    }
 
 }

@@ -22,11 +22,14 @@ public class BvngeeAddonsFeatures {
     //@Config(type = Config.Type.GENERIC, category = Config.Category.FEATURES)
     //public static final BvngeeAddonsConfigOptionList bossBarRenderMode_old = new BvngeeAddonsConfigOptionList("bossBarRenderMode", BossBarRenderMode.DEFAULT);
 
-    @Config(type = Config.Type.GENERIC, category = Config.Category.SETTINGS)
-    private static final BvngeeAddonsConfigHotkey bossBarRenderModeHotkey = new BvngeeAddonsConfigHotkey("bossBarRenderMode", "");
-    @Config(type = Config.Type.GENERIC,category = Config.Category.FEATURES)
-    public static final BvngeeAddonsConfigOptionListHotkeyed bossBarRenderMode = new BvngeeAddonsConfigOptionListHotkeyed("bossBarRenderMode", BossBarRenderMode.DEFAULT, bossBarRenderModeHotkey);
-        //public static final BvngeeAddonsConfigOptionListHotkeyed bossBarRenderMode = new BvngeeAddonsConfigOptionListHotkeyed("bossBarRenderMode", "", BossBarRenderMode.stringValues(), BossBarRenderMode.DEFAULT.getStringValue(), BossBarRenderMode.DEFAULT.getDisplayName());
+        @Config(type = Config.Type.HOTKEY, category = Config.Category.FEATURES)
+        private static final BvngeeAddonsConfigHotkey bossBarRenderModeHotkey = new BvngeeAddonsConfigHotkey("bossBarRenderMode", "");
+        @Config(type = Config.Type.LIST, category = Config.Category.FEATURES)
+        private static final BvngeeAddonsConfigOptionList bossBarRenderModes = new BvngeeAddonsConfigOptionList("bossBarRenderMode", BossBarRenderMode.DEFAULT);
+    @Config(type = Config.Type.NESTED, category = Config.Category.FEATURES)
+    public static final BvngeeAddonsNestedConfigs bossBarRenderMode = new BvngeeAddonsNestedConfigs(bossBarRenderModes, bossBarRenderModeHotkey);
+
+    //public static final BvngeeAddonsConfigOptionListHotkeyed bossBarRenderMode = new BvngeeAddonsConfigOptionListHotkeyed("bossBarRenderMode", "", BossBarRenderMode.stringValues(), BossBarRenderMode.DEFAULT.getStringValue(), BossBarRenderMode.DEFAULT.getDisplayName());
 
 
     //---------------SETTINGS----------------

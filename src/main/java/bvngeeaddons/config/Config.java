@@ -13,10 +13,10 @@ public @interface Config {
 
     Type type();
 
-    Category category() /* default Category.FEATURES*/;
+    Category category();
 
     enum Type implements IStringValue{
-        GENERIC, HOTKEY, LIST, DISABLE, TWEAK;
+        GENERIC, HOTKEY, LIST, DISABLE, TWEAK, NESTED;
         @Override
         public String getStringValue() {
             return StringUtils.translate("bvngeeaddons.gui.config_type." + this.name().toLowerCase());

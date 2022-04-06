@@ -1,10 +1,7 @@
 package bvngeeaddons.config.listEntries;
 
-import bvngeeaddons.config.options.BvngeeAddonsConfigHotkey;
 import fi.dy.masa.malilib.config.IConfigOptionListEntry;
 import fi.dy.masa.malilib.util.StringUtils;
-
-import java.util.Arrays;
 
 public enum BossBarRenderMode implements IConfigOptionListEntry {
     DEFAULT ("default", "bvngeeaddons.config.boss_bar_render_mode.default"),
@@ -13,20 +10,10 @@ public enum BossBarRenderMode implements IConfigOptionListEntry {
 
     private final String configString;
     private final String translationKey;
-    public final BvngeeAddonsConfigHotkey hotkey;
 
     BossBarRenderMode(String configString, String translationKey) {
         this.configString = configString;
         this.translationKey = translationKey;
-        this.hotkey = new BvngeeAddonsConfigHotkey(getDisplayName(), "");
-    }
-
-    public BvngeeAddonsConfigHotkey getHotkey() {
-        return hotkey;
-    }
-
-    public static String[] stringValues() {
-        return (String[]) Arrays.stream(values()).map(BossBarRenderMode::getStringValue).toArray();
     }
 
     @Override

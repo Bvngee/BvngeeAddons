@@ -24,7 +24,7 @@ public class BvngeeAddonsFeaturesHandler {
                     Object config = field.get(null);
                     if (config instanceof BvngeeAddonsIConfigBase){
                         BvngeeAddonsOption option = new BvngeeAddonsOption(annotation, (BvngeeAddonsIConfigBase) config);
-                        //annotation is the Config.Type, config is the actual config
+                        //annotation is the Config.Type+Category, config is the actual config
 
                         /*if(config instanceof BvngeeAddonsConfigOptionListHotkeyed){
                             BvngeeAddonsConfigHotkey hotkey = ((BvngeeAddonsConfigOptionListHotkeyed) config).getHotkey();
@@ -44,7 +44,11 @@ public class BvngeeAddonsFeaturesHandler {
                         TYPE_TO_OPTION.computeIfAbsent(annotation.type(), k -> new ArrayList<>()).add(option);
                         CATEGORY_TO_OPTION.computeIfAbsent(annotation.category(), k -> new ArrayList<>()).add(option);
                     } else if (config instanceof BvngeeAddonsNestedConfigs) {
-
+                        BvngeeAddonsOption option = new BvngeeAddonsOption(annotation, (BvngeeAddonsIConfigBase) config);
+                        OPTIONS.add(option);
+                        CONFIGS.add(option.getConfig());
+                        TYPE_TO_OPTION.computeIfAbsent(annotation.type(), k -> new ArrayList<>()).add(option);
+                        CATEGORY_TO_OPTION.computeIfAbsent(annotation.category(), k -> new ArrayList<>()).add(option);
                     }
                 }catch (IllegalAccessException e){
                     e.printStackTrace();
