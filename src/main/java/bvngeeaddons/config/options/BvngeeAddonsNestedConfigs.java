@@ -43,8 +43,4 @@ public class BvngeeAddonsNestedConfigs implements BvngeeAddonsIConfigBase {
         return null;
     }
 
-//    public String getName() {
-//        return this.name;
-//    }
-
 }
