@@ -9,9 +9,7 @@
   "client": [
     "creativeInteractCauldronFix.CauldronBehaviorMixin",
     "removeAutoJumpButton.ControlsOptionsScreenMixin",
-    "removeAutoJumpButton.ClientPlayerEntityMixin",
-    "gui.WidgetConfigOptionsAccessor",
-    "gui.WidgetConfigOptionMixin"
+    "removeAutoJumpButton.ClientPlayerEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

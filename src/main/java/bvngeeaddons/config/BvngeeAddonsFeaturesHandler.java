@@ -1,9 +1,6 @@
 package bvngeeaddons.config;
 
-import bvngeeaddons.config.options.BvngeeAddonsConfigHotkey;
-import bvngeeaddons.config.options.BvngeeAddonsConfigOptionListHotkeyed;
 import bvngeeaddons.config.options.BvngeeAddonsIConfigBase;
-import bvngeeaddons.config.options.BvngeeAddonsNestedConfigs;
 import fi.dy.masa.malilib.config.IConfigBase;
 
 import java.lang.reflect.Field;
@@ -22,34 +19,11 @@ public class BvngeeAddonsFeaturesHandler {
             if (annotation != null) {
                 try{
                     Object config = field.get(null);
-                    if (config instanceof BvngeeAddonsIConfigBase){
-                        BvngeeAddonsOption option = new BvngeeAddonsOption(annotation, (BvngeeAddonsIConfigBase) config);
-                        //annotation is the Config.Type+Category, config is the actual config
-
-                        /*if(config instanceof BvngeeAddonsConfigOptionListHotkeyed){
-                            BvngeeAddonsConfigHotkey hotkey = ((BvngeeAddonsConfigOptionListHotkeyed) config).getHotkey();
-                            OPTIONS.add(new BvngeeAddonsOption(, hotkey));
-                            CONFIGS.add(hotkey);
-                            TYPE_TO_OPTION.computeIfAbsent(annotation.type(), k -> new ArrayList<>()).add(option);
-                            CATEGORY_TO_OPTION.computeIfAbsent(annotation.category(), k -> new ArrayList<>()).add(option);
-                        }else {
-                            OPTIONS.add(option);
-                            CONFIGS.add(option.getConfig());
-                            TYPE_TO_OPTION.computeIfAbsent(annotation.type(), k -> new ArrayList<>()).add(option);
-                            CATEGORY_TO_OPTION.computeIfAbsent(annotation.category(), k -> new ArrayList<>()).add(option);
-                        }*/
-
-                        OPTIONS.add(option);
-                        CONFIGS.add(option.getConfig());
-                        TYPE_TO_OPTION.computeIfAbsent(annotation.type(), k -> new ArrayList<>()).add(option);
-                        CATEGORY_TO_OPTION.computeIfAbsent(annotation.category(), k -> new ArrayList<>()).add(option);
-                    } else if (config instanceof BvngeeAddonsNestedConfigs) {
                         BvngeeAddonsOption option = new BvngeeAddonsOption(annotation, (BvngeeAddonsIConfigBase) config);
                         OPTIONS.add(option);
                         CONFIGS.add(option.getConfig());
                         TYPE_TO_OPTION.computeIfAbsent(annotation.type(), k -> new ArrayList<>()).add(option);
                         CATEGORY_TO_OPTION.computeIfAbsent(annotation.category(), k -> new ArrayList<>()).add(option);
-                    }
                 }catch (IllegalAccessException e){
                     e.printStackTrace();
                 }

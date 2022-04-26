@@ -9,7 +9,7 @@ import net.minecraft.text.TranslatableText;
 public class BlockSoundsOptionsScreen extends GameOptionsScreen {
 
     public BlockSoundsOptionsScreen(Screen parent, GameOptions gameOptions){
-        super(parent, gameOptions, new TranslatableText(BvngeeAddons.MOD_ID + ".gui.block_sounds_options_screen"));
+        super(parent, gameOptions, new TranslatableText(BvngeeAddons.MOD_ID + ".gui.screen.block_sounds_options_screen"));
     }
 
 

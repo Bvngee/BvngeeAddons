@@ -1,9 +1,9 @@
 package bvngeeaddons.config;
 
 import bvngeeaddons.config.listEntries.BossBarRenderMode;
+import bvngeeaddons.config.listEntries.ShownBossBarType;
 import bvngeeaddons.config.options.*;
 import bvngeeaddons.gui.BvngeeAddonsConfigGui;
-import org.intellij.lang.annotations.MagicConstant;
 
 public class BvngeeAddonsFeatures {
 
@@ -11,25 +11,25 @@ public class BvngeeAddonsFeatures {
     //----------------FIXES-----------------
 
     @Config(type = Config.Type.GENERIC, category = Config.Category.FIXES)
-    public static final BvngeeAddonsConfigBoolean creativeInteractCauldronFix = new BvngeeAddonsConfigBoolean("emptyBottleFix", false);
+    public static final BvngeeAddonsConfigBoolean creativeInteractCauldronFix = new BvngeeAddonsConfigBoolean("creativeInteractCauldronFix", false);
 
 
     //---------------FEATURES---------------
 
     @Config(type = Config.Type.GENERIC, category = Config.Category.FEATURES)
-    public static final BvngeeAddonsConfigBoolean removeAutoJumpButton = new BvngeeAddonsConfigBoolean("removeAutoJumpButtons", false);
+    public static final BvngeeAddonsConfigBoolean removeAutoJumpButton = new BvngeeAddonsConfigBoolean("removeAutoJumpButton", false);
 
-    //@Config(type = Config.Type.GENERIC, category = Config.Category.FEATURES)
-    //public static final BvngeeAddonsConfigOptionList bossBarRenderMode_old = new BvngeeAddonsConfigOptionList("bossBarRenderMode", BossBarRenderMode.DEFAULT);
+    @Config(type = Config.Type.GENERIC, category = Config.Category.FEATURES)
+    public static final BvngeeAddonsConfigOptionList bossBarRenderMode = new BvngeeAddonsConfigOptionList("bossBarRenderMode", BossBarRenderMode.DEFAULT);
 
-        @Config(type = Config.Type.HOTKEY, category = Config.Category.FEATURES)
-        private static final BvngeeAddonsConfigHotkey bossBarRenderModeHotkey = new BvngeeAddonsConfigHotkey("bossBarRenderMode", "");
-        @Config(type = Config.Type.LIST, category = Config.Category.FEATURES)
-        private static final BvngeeAddonsConfigOptionList bossBarRenderModes = new BvngeeAddonsConfigOptionList("bossBarRenderMode", BossBarRenderMode.DEFAULT);
-    @Config(type = Config.Type.NESTED, category = Config.Category.FEATURES)
-    public static final BvngeeAddonsNestedConfigs bossBarRenderMode = new BvngeeAddonsNestedConfigs(bossBarRenderModes, bossBarRenderModeHotkey);
+    @Config(type = Config.Type.GENERIC, category = Config.Category.FEATURES)
+    public static final BvngeeAddonsConfigOptionList shownBossBarType = new BvngeeAddonsConfigOptionList("shownBossBarType", ShownBossBarType.BOTH);
 
-    //public static final BvngeeAddonsConfigOptionListHotkeyed bossBarRenderMode = new BvngeeAddonsConfigOptionListHotkeyed("bossBarRenderMode", "", BossBarRenderMode.stringValues(), BossBarRenderMode.DEFAULT.getStringValue(), BossBarRenderMode.DEFAULT.getDisplayName());
+    @Config(type = Config.Type.GENERIC, category = Config.Category.FEATURES)
+    public static final BvngeeAddonsConfigBoolean separateBossesWithNames = new BvngeeAddonsConfigBoolean("separateBossesWithNames", false);
+
+    @Config(type = Config.Type.GENERIC, category = Config.Category.FEATURES)
+    public static final BvngeeAddonsConfigInteger bossBarScale = new BvngeeAddonsConfigInteger("bossBarScale", 100);
 
 
     //---------------SETTINGS----------------
