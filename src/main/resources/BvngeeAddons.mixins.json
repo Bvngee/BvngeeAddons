@@ -4,12 +4,12 @@
   "package": "bvngeeaddons.mixins",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
-
   ],
   "client": [
     "creativeInteractCauldronFix.CauldronBehaviorMixin",
+    "removeAutoJumpButton.ClientPlayerEntityMixin",
     "removeAutoJumpButton.ControlsOptionsScreenMixin",
-    "removeAutoJumpButton.ClientPlayerEntityMixin"
+    "bossBarModifications.BossBarHudMixin"
   ],
   "injectors": {
     "defaultRequire": 1
