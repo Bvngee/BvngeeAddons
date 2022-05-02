@@ -18,10 +18,10 @@
 
   "bvngeeaddons.config.creativeInteractCauldronFix.comment": "No more bottles or buckets added to your inventory when interacting with cauldrons in creative! Idea: schmoe_mc",
   "bvngeeaddons.config.removeAutoJumpButton.comment": "Removes the Auto Jump button and disables Auto Jump. Cuz why the fuck not?",
-  "bvngeeaddons.config.bossBarRenderMode.comment": "Compact renders only 1 boss bar + total boss count, None disables boss bars entirely",
+  "bvngeeaddons.config.bossBarRenderMode.comment": "Compact mode renders only 1 boss bar for each type + total boss count; None disables boss bars entirely",
   "bvngeeaddons.config.shownBossBarType.comment": "Dictates whether to show the boss bars of only withers, only dragons, or both",
-  "bvngeeaddons.config.separateBossesWithNames.comment": "Separates all name tagged bosses into individual boss bars when using the Compact bossBarRenderMode",
-  "bvngeeaddons.config.bossBarScale.comment": "The scale in percentage at which to render all boss bars",
+  "bvngeeaddons.config.separateBossesWithNames.comment": "Separates all name tagged bosses when using the Compact or None bossBarRenderMode",
+  "bvngeeaddons.config.bossBarScale.comment": "The scale from 0 to 1 at which to render all boss bars",
 
   "bvngeeaddons.config.openBvngeeAddonsGui.comment": "The hotkey used to open this gui"
 }

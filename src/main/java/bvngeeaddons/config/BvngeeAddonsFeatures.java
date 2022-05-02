@@ -26,10 +26,10 @@ public class BvngeeAddonsFeatures {
     public static final BvngeeAddonsConfigOptionList shownBossBarType = new BvngeeAddonsConfigOptionList("shownBossBarType", ShownBossBarType.BOTH);
 
     @Config(type = Config.Type.GENERIC, category = Config.Category.FEATURES)
-    public static final BvngeeAddonsConfigBoolean separateBossesWithNames = new BvngeeAddonsConfigBoolean("separateBossesWithNames", false);
+    public static final BvngeeAddonsConfigBoolean separateBossBarsWithNames = new BvngeeAddonsConfigBoolean("separateBossesWithNames", false);
 
     @Config(type = Config.Type.GENERIC, category = Config.Category.FEATURES)
-    public static final BvngeeAddonsConfigInteger bossBarScale = new BvngeeAddonsConfigInteger("bossBarScale", 100);
+    public static final BvngeeAddonsConfigDouble bossBarScale = new BvngeeAddonsConfigDouble("bossBarScale", 1);
 
 
     //---------------SETTINGS----------------
