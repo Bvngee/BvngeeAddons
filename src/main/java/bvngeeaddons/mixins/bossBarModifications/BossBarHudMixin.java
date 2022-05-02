@@ -2,7 +2,7 @@ package bvngeeaddons.mixins.bossBarModifications;
 
 import bvngeeaddons.config.BvngeeAddonsFeatures;
 import bvngeeaddons.config.listEntries.BossBarRenderMode;
-import com.google.common.collect.Lists;
+import bvngeeaddons.config.listEntries.ShownBossBarType;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.BossBarHud;
 import net.minecraft.client.gui.hud.ClientBossBar;
@@ -19,7 +19,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import javax.print.attribute.standard.MediaSize;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -34,10 +33,6 @@ public abstract class BossBarHudMixin {
     @Shadow @Final private MinecraftClient client;
 
     @Shadow @Final private static int WIDTH;
-
-    @Shadow public abstract void render(MatrixStack matrices);
-
-    @Shadow protected abstract void renderBossBar(MatrixStack matrices, int x, int y, BossBar bossBar);
 
     private Map<BossBar.Color, List<ClientBossBar>> colorToBossBars = new LinkedHashMap<>();
 
@@ -70,9 +65,9 @@ public abstract class BossBarHudMixin {
         final boolean separate = BvngeeAddonsFeatures.separateBossBarsWithNames.getBooleanValue();
         final BossBarRenderMode mode = (BossBarRenderMode) BvngeeAddonsFeatures.bossBarRenderMode.getOptionListValue();
 
-        if(mode == BossBarRenderMode.COMPACT) {
+        if (mode == BossBarRenderMode.COMPACT) {
 
-            List<ClientBossBar> bossBars = colorToBossBars.get(bossBar.getColor());
+            List<ClientBossBar> bossBars = filterBossBarTypes(colorToBossBars.get(bossBar.getColor()));
             List<ClientBossBar> unnamedBossBars = new ArrayList<>(), namedBossBars = new ArrayList<>();
             for (ClientBossBar clientBossBar : bossBars) {
                 if (isNamed(clientBossBar)) {
@@ -82,10 +77,9 @@ public abstract class BossBarHudMixin {
                 }
             }
             String unnamedType = unnamedBossBars.get(0).getName().getString();
-            if (separate && namedBossBars.size() > 0) {
+            if(separate && namedBossBars.size() > 0) {
                 final String separator = "... , ";
                 final int extraLength = client.textRenderer.getWidth(separator.length() + unnamedType);
-                System.out.println(extraLength);
                 StringBuilder stringBuilder = new StringBuilder();
                 int width = 0;
                 while (width + extraLength <= WIDTH && namedBossBars.size() > 0) {
@@ -139,6 +133,17 @@ public abstract class BossBarHudMixin {
 
     private boolean isNamed(ClientBossBar bossBar) {
         return !(bossBar.getName().getString().equals("Wither") || bossBar.getName().getString().equals("Ender Dragon"));
+    }
+
+    private List<ClientBossBar> filterBossBarTypes(List<ClientBossBar> bossBars) {
+        ShownBossBarType type = (ShownBossBarType) BvngeeAddonsFeatures.shownBossBarType.getOptionListValue();
+        if (type == ShownBossBarType.WITHER) {
+            return bossBars.stream().filter(k -> k.getColor() != BossBar.Color.PURPLE).toList();
+        } else if (type == ShownBossBarType.DRAGON) {
+            return bossBars.stream().filter(k -> k.getColor() != BossBar.Color.PINK).toList();
+        } else { //Both
+            return bossBars;
+        }
     }
 
 }
