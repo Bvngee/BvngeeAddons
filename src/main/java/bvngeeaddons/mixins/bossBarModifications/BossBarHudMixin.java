@@ -37,8 +37,8 @@ public abstract class BossBarHudMixin {
     private Map<BossBar.Color, List<ClientBossBar>> colorToBossBars = new LinkedHashMap<>();
 
     @Redirect(method = "render", at = @At(value = "INVOKE", target = "Ljava/util/Map;values()Ljava/util/Collection;", shift = At.Shift.AFTER))
-    private Iterator<?> compactModeList(Collection<ClientBossBar> values) {
-        if(BvngeeAddonsFeatures.bossBarRenderMode.getOptionListValue() == BossBarRenderMode.COMPACT) {
+    private Iterator<ClientBossBar> compactModeList(Collection<ClientBossBar> values) {
+        if (BvngeeAddonsFeatures.bossBarRenderMode.getOptionListValue() == BossBarRenderMode.COMPACT) {
 
             colorToBossBars = new LinkedHashMap<>();
             for (ClientBossBar bossBar : values) {
@@ -46,7 +46,7 @@ public abstract class BossBarHudMixin {
             }
             return colorToBossBars.values().stream().map(n -> n.get(0)).iterator();
 
-        } else if(BvngeeAddonsFeatures.bossBarRenderMode.getOptionListValue() == BossBarRenderMode.NONE) {
+        } else if (BvngeeAddonsFeatures.bossBarRenderMode.getOptionListValue() == BossBarRenderMode.NONE) {
 
             return BvngeeAddonsFeatures.separateBossBarsWithNames.getBooleanValue() ?
                     values.stream().filter(this::isNamed).iterator()
@@ -77,7 +77,7 @@ public abstract class BossBarHudMixin {
                 }
             }
             String unnamedType = unnamedBossBars.get(0).getName().getString();
-            if(separate && namedBossBars.size() > 0) {
+            if (separate && namedBossBars.size() > 0) {
                 final String separator = "... , ";
                 final int extraLength = client.textRenderer.getWidth(separator.length() + unnamedType);
                 StringBuilder stringBuilder = new StringBuilder();
@@ -98,7 +98,7 @@ public abstract class BossBarHudMixin {
                 return new LiteralText(unnamedType + (unnamedBossBars.size() > 1 ? " - x" + bossBars.size() : ""));
             }
 
-        } else if(mode == BossBarRenderMode.NONE) {
+        } else if (mode == BossBarRenderMode.NONE) {
 
             return separate ?
                     bossBar.getName()
