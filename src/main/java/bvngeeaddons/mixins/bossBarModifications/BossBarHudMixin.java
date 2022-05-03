@@ -11,6 +11,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.boss.BossBar;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
+import org.lwjgl.system.CallbackI;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -19,27 +20,39 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Mixin(BossBarHud.class)
 public abstract class BossBarHudMixin {
 
     @Shadow @Final private MinecraftClient client;
-
     @Shadow @Final private static int WIDTH;
 
+    private List<ClientBossBar> allBossBars = new ArrayList<>();
     private Map<BossBar.Color, List<ClientBossBar>> colorToBossBars = new LinkedHashMap<>();
+    private List<ClientBossBar> renderedBossBars = new ArrayList<>();
+    private List<LiteralText> renderedLabels = new ArrayList<>();
+
+    private BossBarRenderMode renderMode = (BossBarRenderMode) BvngeeAddonsFeatures.bossBarRenderMode.getOptionListValue();
+    private ShownBossBarType shownTypes = (ShownBossBarType) BvngeeAddonsFeatures.shownBossBarType.getOptionListValue();
+    private double renderScale = BvngeeAddonsFeatures.bossBarScale.getDoubleValue();
+    private boolean separateNamed = BvngeeAddonsFeatures.separateBossBarsWithNames.getBooleanValue();
 
     @Redirect(method = "render", at = @At(value = "INVOKE", target = "Ljava/util/Map;values()Ljava/util/Collection;", shift = At.Shift.AFTER))
     private Iterator<ClientBossBar> compactModeList(Collection<ClientBossBar> values) {
-        if (BvngeeAddonsFeatures.bossBarRenderMode.getOptionListValue() == BossBarRenderMode.COMPACT) {
 
+        List<ClientBossBar> newList = values.stream().toList();
+        //check if any of the config settings changed OR the list of bossbars changed.
+        //If so, run updateBossBarList, which will run UpdateLableList
+        if (!newList.equals(allBossBars) || isConfigChanged()) {
+            allBossBars = newList;
+            updateBossBarList();
+            updateLabelList();
+        }
+        return renderedBossBars.iterator();
+
+        //moved into Update stuff
+        if (BvngeeAddonsFeatures.bossBarRenderMode.getOptionListValue() == BossBarRenderMode.COMPACT) {
             colorToBossBars = new LinkedHashMap<>();
             for (ClientBossBar bossBar : values) {
                 colorToBossBars.computeIfAbsent(bossBar.getColor(), k -> new ArrayList<>()).add(bossBar);
@@ -59,9 +72,12 @@ public abstract class BossBarHudMixin {
         }
     }
 
+    //this becomes unnecessary, because I will set the name to render based on the
+    //corresponding element of the Label list straight into the bossbars
     @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/ClientBossBar;getName()Lnet/minecraft/text/Text;"))
     private Text compactModeLabel(ClientBossBar bossBar) {
 
+        //moved into Update stuff
         final boolean separate = BvngeeAddonsFeatures.separateBossBarsWithNames.getBooleanValue();
         final BossBarRenderMode mode = (BossBarRenderMode) BvngeeAddonsFeatures.bossBarRenderMode.getOptionListValue();
 
@@ -76,6 +92,7 @@ public abstract class BossBarHudMixin {
                     unnamedBossBars.add(clientBossBar);
                 }
             }
+            System.out.println("unnamed: " + unnamedBossBars.size() + "    named: " + namedBossBars.size());
             String unnamedType = unnamedBossBars.get(0).getName().getString();
             if (separate && namedBossBars.size() > 0) {
                 final String separator = "... , ";
@@ -100,20 +117,13 @@ public abstract class BossBarHudMixin {
 
         } else if (mode == BossBarRenderMode.NONE) {
 
-            return separate ?
-                    bossBar.getName()
-                    : new LiteralText("");
+            return separate ? bossBar.getName() : new LiteralText("");
 
         } else { //Default
 
             return bossBar.getName();
 
         }
-    }
-
-    @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/Window;getScaledHeight()I"))
-    private int fixBossBarLimit(Window window) {
-        return (int) (window.getScaledHeight() / BvngeeAddonsFeatures.bossBarScale.getDoubleValue());
     }
 
     //todo: move to another class for rendering related utils?
@@ -131,8 +141,33 @@ public abstract class BossBarHudMixin {
         matrices.pop();
     }
 
-    private boolean isNamed(ClientBossBar bossBar) {
-        return !(bossBar.getName().getString().equals("Wither") || bossBar.getName().getString().equals("Ender Dragon"));
+    @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/Window;getScaledHeight()I"))
+    private int fixBossBarLimit(Window window) {
+        return (int) (window.getScaledHeight() / BvngeeAddonsFeatures.bossBarScale.getDoubleValue());
+    }
+
+    private void updateBossBarList() {
+
+    }
+
+
+    private void updateLabelList() {
+
+        //do logic here based on the way the renderedBossBars is
+    }
+
+    private boolean isConfigChanged() {
+        if (
+                BvngeeAddonsFeatures.bossBarRenderMode.getOptionListValue() != renderMode
+                        || BvngeeAddonsFeatures.shownBossBarType.getOptionListValue() != shownTypes
+                        || BvngeeAddonsFeatures.bossBarScale.getDoubleValue() != renderScale
+                        || BvngeeAddonsFeatures.separateBossBarsWithNames.getBooleanValue() != separateNamed
+        ) {
+            //update stored configs
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private List<ClientBossBar> filterBossBarTypes(List<ClientBossBar> bossBars) {
@@ -144,6 +179,10 @@ public abstract class BossBarHudMixin {
         } else { //Both
             return bossBars;
         }
+    }
+
+    private boolean isNamed(ClientBossBar bossBar) {
+        return !(bossBar.getName().getString().equals("Wither") || bossBar.getName().getString().equals("Ender Dragon"));
     }
 
 }
