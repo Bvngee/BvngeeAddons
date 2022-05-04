@@ -3,16 +3,16 @@ package bvngeeaddons.config.listEntries;
 import fi.dy.masa.malilib.config.IConfigOptionListEntry;
 import fi.dy.masa.malilib.util.StringUtils;
 
-public enum ShownBossBarType implements IConfigOptionListEntry {
+public enum ShownBossBarTypes implements IConfigOptionListEntry {
 
-    BOTH ("both", "bvngeeaddons.config.shown_boss_bar_type.both"),
-    WITHER ("wither", "bvngeeaddons.config.shown_boss_bar_type.wither"),
-    DRAGON ("dragon", "bvngeeaddons.config.shown_boss_bar_type.dragon");
+    BOTH ("both", "bvngeeaddons.config.shown_boss_bar_types.both"),
+    WITHER ("wither", "bvngeeaddons.config.shown_boss_bar_types.wither"),
+    DRAGON ("dragon", "bvngeeaddons.config.shown_boss_bar_types.dragon");
 
     private final String configString;
     private final String translationKey;
 
-    ShownBossBarType(String configString, String translationKey) {
+    ShownBossBarTypes(String configString, String translationKey) {
         this.configString = configString;
         this.translationKey = translationKey;
     }
@@ -40,9 +40,9 @@ public enum ShownBossBarType implements IConfigOptionListEntry {
 
     @Override
     public IConfigOptionListEntry fromString(String value) {
-        for (ShownBossBarType type : ShownBossBarType.values()) {
+        for (ShownBossBarTypes type : ShownBossBarTypes.values()) {
             if (value.equalsIgnoreCase(type.configString)) return type;
         }
-        return ShownBossBarType.BOTH;
+        return ShownBossBarTypes.BOTH;
     }
 }

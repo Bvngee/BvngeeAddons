@@ -1,8 +1,9 @@
 package bvngeeaddons.mixins.bossBarModifications;
 
+import bvngeeaddons.BvngeeAddons;
 import bvngeeaddons.config.BvngeeAddonsFeatures;
 import bvngeeaddons.config.listEntries.BossBarRenderMode;
-import bvngeeaddons.config.listEntries.ShownBossBarType;
+import bvngeeaddons.config.listEntries.ShownBossBarTypes;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.BossBarHud;
 import net.minecraft.client.gui.hud.ClientBossBar;
@@ -11,7 +12,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.boss.BossBar;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import org.lwjgl.system.CallbackI;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -31,10 +31,9 @@ public abstract class BossBarHudMixin {
     private List<ClientBossBar> allBossBars = new ArrayList<>();
     private Map<BossBar.Color, List<ClientBossBar>> colorToBossBars = new LinkedHashMap<>();
     private List<ClientBossBar> renderedBossBars = new ArrayList<>();
-    private List<LiteralText> renderedLabels = new ArrayList<>();
 
     private BossBarRenderMode renderMode = (BossBarRenderMode) BvngeeAddonsFeatures.bossBarRenderMode.getOptionListValue();
-    private ShownBossBarType shownTypes = (ShownBossBarType) BvngeeAddonsFeatures.shownBossBarType.getOptionListValue();
+    private ShownBossBarTypes shownTypes = (ShownBossBarTypes) BvngeeAddonsFeatures.shownBossBarTypes.getOptionListValue();
     private double renderScale = BvngeeAddonsFeatures.bossBarScale.getDoubleValue();
     private boolean separateNamed = BvngeeAddonsFeatures.separateBossBarsWithNames.getBooleanValue();
 
@@ -43,15 +42,15 @@ public abstract class BossBarHudMixin {
 
         List<ClientBossBar> newList = values.stream().toList();
         //check if any of the config settings changed OR the list of bossbars changed.
-        //If so, run updateBossBarList, which will run UpdateLableList
+        //If so, run updateBossBarList
         if (!newList.equals(allBossBars) || isConfigChanged()) {
             allBossBars = newList;
             updateBossBarList();
-            updateLabelList();
         }
-        return renderedBossBars.iterator();
 
-        //moved into Update stuff
+        return filterBossBarTypes(renderedBossBars).iterator();
+
+        /*//moved into Update stuff
         if (BvngeeAddonsFeatures.bossBarRenderMode.getOptionListValue() == BossBarRenderMode.COMPACT) {
             colorToBossBars = new LinkedHashMap<>();
             for (ClientBossBar bossBar : values) {
@@ -69,13 +68,13 @@ public abstract class BossBarHudMixin {
 
             return values.iterator();
 
-        }
+        }*/
     }
 
     //this becomes unnecessary, because I will set the name to render based on the
     //corresponding element of the Label list straight into the bossbars
-    @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/ClientBossBar;getName()Lnet/minecraft/text/Text;"))
-    private Text compactModeLabel(ClientBossBar bossBar) {
+    /*@Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/ClientBossBar;getName()Lnet/minecraft/text/Text;"))
+    private Text compactModeLabelUnneeded(ClientBossBar bossBar) {
 
         //moved into Update stuff
         final boolean separate = BvngeeAddonsFeatures.separateBossBarsWithNames.getBooleanValue();
@@ -124,7 +123,7 @@ public abstract class BossBarHudMixin {
             return bossBar.getName();
 
         }
-    }
+    }*/
 
     //todo: move to another class for rendering related utils?
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/Window;getScaledWidth()I", shift = At.Shift.BEFORE))
@@ -147,23 +146,70 @@ public abstract class BossBarHudMixin {
     }
 
     private void updateBossBarList() {
+        System.out.println("update");
+        if (renderMode == BossBarRenderMode.COMPACT) {
 
+            colorToBossBars = new LinkedHashMap<>();
+            for (ClientBossBar bossBar : allBossBars) {
+                colorToBossBars.computeIfAbsent(bossBar.getColor(), k -> new ArrayList<>()).add(bossBar);
+            }
+            renderedBossBars = colorToBossBars.values().stream().map(n -> compactModeLabel(n.get(0))).toList();
+
+        } else if (renderMode == BossBarRenderMode.NONE) {
+
+            renderedBossBars = separateNamed ? allBossBars.stream().filter(this::isNamed).toList() : new ArrayList<>();
+
+        } else { //DEFAULT
+
+            renderedBossBars = allBossBars;
+
+        }
     }
 
 
-    private void updateLabelList() {
+    private ClientBossBar compactModeLabel(ClientBossBar bossBar) {
 
-        //do logic here based on the way the renderedBossBars is
+        List<ClientBossBar> bossBars = colorToBossBars.get(bossBar.getColor());
+        List<ClientBossBar> namedBossBars = new ArrayList<>(), unnamedBossBars = new ArrayList<>();
+        bossBars.forEach(k -> {
+            if (isNamed(k)) { namedBossBars.add(k); } else { unnamedBossBars.add(k); }
+        });
+
+        StringBuilder namedString = new StringBuilder();
+        String unnamedType = unnamedBossBars.get(0).getName().getString();
+        String separator = "... , ";
+        int extraWidth = 50;
+        int width = 0;
+        while (width <= WIDTH - extraWidth) {
+            namedString.append(namedBossBars.get(0).getName().getString()).append(", ");
+            namedBossBars.remove(0);
+            width = client.textRenderer.getWidth(namedString.toString());
+        }
+
+        final boolean cutOff = namedBossBars.size() > 0;
+        final String unnamedString = unnamedBossBars.size() > 0 ?
+                (cutOff ? separator : "") +
+                unnamedType +
+                (unnamedBossBars.size() > 1 ? " - x" + unnamedBossBars.size() : "")
+                : "";
+
+        ClientBossBar output = new ClientBossBar(bossBar.getUuid(), bossBar.getName(), bossBar.getPercent(), bossBar.getColor(), bossBar.getStyle(), bossBar.shouldDarkenSky(), bossBar.hasDragonMusic(), bossBar.shouldThickenFog());
+        output.setName(new LiteralText(namedString.append(unnamedString).toString()));
+        return output;
+
     }
 
     private boolean isConfigChanged() {
         if (
                 BvngeeAddonsFeatures.bossBarRenderMode.getOptionListValue() != renderMode
-                        || BvngeeAddonsFeatures.shownBossBarType.getOptionListValue() != shownTypes
-                        || BvngeeAddonsFeatures.bossBarScale.getDoubleValue() != renderScale
-                        || BvngeeAddonsFeatures.separateBossBarsWithNames.getBooleanValue() != separateNamed
+                || BvngeeAddonsFeatures.shownBossBarTypes.getOptionListValue() != shownTypes
+                || BvngeeAddonsFeatures.bossBarScale.getDoubleValue() != renderScale
+                || BvngeeAddonsFeatures.separateBossBarsWithNames.getBooleanValue() != separateNamed
         ) {
-            //update stored configs
+            renderMode = (BossBarRenderMode) BvngeeAddonsFeatures.bossBarRenderMode.getOptionListValue();
+            shownTypes = (ShownBossBarTypes) BvngeeAddonsFeatures.shownBossBarTypes.getOptionListValue();
+            renderScale = BvngeeAddonsFeatures.bossBarScale.getDoubleValue();
+            separateNamed = BvngeeAddonsFeatures.separateBossBarsWithNames.getBooleanValue();
             return true;
         } else {
             return false;
@@ -171,10 +217,9 @@ public abstract class BossBarHudMixin {
     }
 
     private List<ClientBossBar> filterBossBarTypes(List<ClientBossBar> bossBars) {
-        ShownBossBarType type = (ShownBossBarType) BvngeeAddonsFeatures.shownBossBarType.getOptionListValue();
-        if (type == ShownBossBarType.WITHER) {
+        if (shownTypes == ShownBossBarTypes.WITHER) {
             return bossBars.stream().filter(k -> k.getColor() != BossBar.Color.PURPLE).toList();
-        } else if (type == ShownBossBarType.DRAGON) {
+        } else if (shownTypes == ShownBossBarTypes.DRAGON) {
             return bossBars.stream().filter(k -> k.getColor() != BossBar.Color.PINK).toList();
         } else { //Both
             return bossBars;

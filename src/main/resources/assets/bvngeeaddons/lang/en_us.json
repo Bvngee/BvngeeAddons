@@ -12,9 +12,9 @@
   "bvngeeaddons.config.boss_bar_render_mode.default": "Default",
   "bvngeeaddons.config.boss_bar_render_mode.compact": "Compact",
   "bvngeeaddons.config.boss_bar_render_mode.none": "None",
-  "bvngeeaddons.config.shown_boss_bar_type.both": "Both",
-  "bvngeeaddons.config.shown_boss_bar_type.wither": "Wither",
-  "bvngeeaddons.config.shown_boss_bar_type.dragon": "Dragon",
+  "bvngeeaddons.config.shown_boss_bar_types.both": "Both",
+  "bvngeeaddons.config.shown_boss_bar_types.wither": "Wither",
+  "bvngeeaddons.config.shown_boss_bar_types.dragon": "Dragon",
 
   "bvngeeaddons.config.creativeInteractCauldronFix.comment": "No more bottles or buckets added to your inventory when interacting with cauldrons in creative! Idea: schmoe_mc",
   "bvngeeaddons.config.removeAutoJumpButton.comment": "Removes the Auto Jump button and disables Auto Jump. Cuz why the fuck not?",
