@@ -18,13 +18,19 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 @Mixin(BossBarHud.class)
 public abstract class BossBarHudMixin {
 
     @Shadow @Final private MinecraftClient client;
     @Shadow @Final private static int WIDTH;
+
     private List<ClientBossBar> allBossBars = new ArrayList<>();
     private final Map<BossBar.Color, List<ClientBossBar>> colorToBossBars = new LinkedHashMap<>();
     private List<ClientBossBar> renderedBossBars = new ArrayList<>();
@@ -37,15 +43,15 @@ public abstract class BossBarHudMixin {
     private Iterator<ClientBossBar> bossBarListRedirect(Collection<ClientBossBar> values) {
 
         List<ClientBossBar> newList = values.stream().toList();
-        if (
-                !newList.equals(allBossBars)
-                || newList.stream().map(n -> n.getName().getString()).equals(allBossBars.stream().map(n -> n.getName().getString()))
-                || isConfigChanged()
-        ) {
-            System.out.println("update");
+        /*if (
+                isConfigChanged()
+                || true
+                || !newList.equals(allBossBars)
+                || !newList.stream().map(n -> n.getName().getString()).toList().equals(allBossBars.stream().map(n -> n.getName().getString()).toList())
+        ) {*/
             allBossBars = newList;
             updateBossBarList();
-        }
+        //}
 
         return filterBossBarTypes(renderedBossBars).iterator();
 
@@ -104,7 +110,6 @@ public abstract class BossBarHudMixin {
 
         if (separateNamed) {
             StringBuilder namedString = new StringBuilder();
-            final String separator = "... , ";
             final int extraWidth = 50;
             int width = 0;
             while (width <= WIDTH - extraWidth && namedBossBars.size() > 0) {
@@ -115,7 +120,7 @@ public abstract class BossBarHudMixin {
             }
             final boolean cutOff = namedBossBars.size() > 0;
             final String unnamedString = unnamedBossBars.size() > 0 ? (
-                    (cutOff ? separator : ", ") +
+                    (cutOff ? "... , " : (namedString.length() > 0 ? ", " : "")) +
                     (unnamedType) +
                     (unnamedBossBars.size() > 1 ? " - x" + unnamedBossBars.size() : "")
                     ) : "";
@@ -132,7 +137,7 @@ public abstract class BossBarHudMixin {
 
     }
 
-    private boolean isConfigChanged() {
+    /*private boolean isConfigChanged() {
         if (
                 BvngeeAddonsFeatures.bossBarRenderMode.getOptionListValue() != renderMode
                 || BvngeeAddonsFeatures.shownBossBarTypes.getOptionListValue() != shownTypes
@@ -145,7 +150,7 @@ public abstract class BossBarHudMixin {
         } else {
             return false;
         }
-    }
+    }*/
 
     private List<ClientBossBar> filterBossBarTypes(List<ClientBossBar> bossBars) {
         if (shownTypes == ShownBossBarTypes.WITHER) {
