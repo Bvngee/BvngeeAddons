@@ -1,4 +1,4 @@
-package bvngeeaddons.mixins.bossBarModifications;
+package bvngeeaddons.mixins.bossBar;
 
 import bvngeeaddons.config.BvngeeAddonsFeatures;
 import bvngeeaddons.config.listEntries.BossBarRenderMode;
@@ -18,12 +18,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Mixin(BossBarHud.class)
 public abstract class BossBarHudMixin {
@@ -42,16 +37,11 @@ public abstract class BossBarHudMixin {
     @Redirect(method = "render", at = @At(value = "INVOKE", target = "Ljava/util/Map;values()Ljava/util/Collection;", shift = At.Shift.AFTER))
     private Iterator<ClientBossBar> bossBarListRedirect(Collection<ClientBossBar> values) {
 
-        List<ClientBossBar> newList = values.stream().toList();
-        /*if (
-                isConfigChanged()
-                || true
-                || !newList.equals(allBossBars)
-                || !newList.stream().map(n -> n.getName().getString()).toList().equals(allBossBars.stream().map(n -> n.getName().getString()).toList())
-        ) {*/
-            allBossBars = newList;
+        final List<ClientBossBar> newList = values.stream().toList();
+        if (isConfigChanged() || /*Arrays.deepEquals(allBossBars.toArray(), newList.toArray())*/!allBossBars.equals(newList)) {
+            allBossBars = new ArrayList<>(newList.stream().map(this::bossBarCopy).toList());
             updateBossBarList();
-        //}
+        }
 
         return filterBossBarTypes(renderedBossBars).iterator();
 
@@ -96,6 +86,9 @@ public abstract class BossBarHudMixin {
             renderedBossBars = allBossBars;
 
         }
+
+        //renderedBossBars = renderedBossBars.stream().map(this::bossBarCopy).toList();
+
     }
 
 
@@ -112,15 +105,17 @@ public abstract class BossBarHudMixin {
             StringBuilder namedString = new StringBuilder();
             final int extraWidth = 50;
             int width = 0;
+
             while (width <= WIDTH - extraWidth && namedBossBars.size() > 0) {
                 namedString.append(namedBossBars.get(0).getName().getString());
                 namedBossBars.remove(0);
                 if (namedBossBars.size() > 0) namedString.append(", ");
                 width = client.textRenderer.getWidth(namedString.toString());
             }
-            final boolean cutOff = namedBossBars.size() > 0;
+            if (namedBossBars.size() > 0) namedString.append("... ");
+
             final String unnamedString = unnamedBossBars.size() > 0 ? (
-                    (cutOff ? "... , " : (namedString.length() > 0 ? ", " : "")) +
+                    (namedString.length() > 0 ? ", " : "") +
                     (unnamedType) +
                     (unnamedBossBars.size() > 1 ? " - x" + unnamedBossBars.size() : "")
                     ) : "";
@@ -132,12 +127,12 @@ public abstract class BossBarHudMixin {
                             : unnamedType
                     );
         }
-
-        return new ClientBossBar(bossBar.getUuid(), label, bossBar.getPercent(), bossBar.getColor(), bossBar.getStyle(), bossBar.shouldDarkenSky(), bossBar.hasDragonMusic(), bossBar.shouldThickenFog());
+        bossBar.setName(label);
+        return bossBar;
 
     }
 
-    /*private boolean isConfigChanged() {
+    private boolean isConfigChanged() {
         if (
                 BvngeeAddonsFeatures.bossBarRenderMode.getOptionListValue() != renderMode
                 || BvngeeAddonsFeatures.shownBossBarTypes.getOptionListValue() != shownTypes
@@ -150,7 +145,7 @@ public abstract class BossBarHudMixin {
         } else {
             return false;
         }
-    }*/
+    }
 
     private List<ClientBossBar> filterBossBarTypes(List<ClientBossBar> bossBars) {
         if (shownTypes == ShownBossBarTypes.WITHER) {
@@ -164,6 +159,10 @@ public abstract class BossBarHudMixin {
 
     private boolean isNamed(ClientBossBar bossBar) {
         return !(bossBar.getName().getString().equals("Wither") || bossBar.getName().getString().equals("Ender Dragon"));
+    }
+
+    private ClientBossBar bossBarCopy(ClientBossBar original) {
+        return new ClientBossBar(original.getUuid(), original.getName(), original.getPercent(), original.getColor(), original.getStyle(), original.shouldDarkenSky(), original.hasDragonMusic(), original.shouldThickenFog());
     }
 
 }

@@ -9,7 +9,7 @@
     "creativeInteractCauldronFix.CauldronBehaviorMixin",
     "removeAutoJumpButton.ClientPlayerEntityMixin",
     "removeAutoJumpButton.ControlsOptionsScreenMixin",
-    "bossBarModifications.BossBarHudMixin"
+    "bossBar.BossBarHudMixin"
   ],
   "injectors": {
     "defaultRequire": 1
