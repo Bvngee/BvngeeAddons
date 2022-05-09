@@ -28,7 +28,8 @@ public class AbstractCauldronBlockMixin {
     private void tail(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<CauldronBehavior> cir) {
         if (world.isClient && player.getAbilities().creativeMode && BvngeeAddonsFeatures.creativeInteractCauldronFix.getBooleanValue()) {
             // ??? \/
-            player.getInventory().getStack(slotNumber).setCount(0);
+            //works on server!
+            player.getInventory().getStack(0).setCount(0);
             System.out.println("hi " + slotNumber);
         }
     }

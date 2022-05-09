@@ -44,7 +44,6 @@ public class BvngeeAddonsFeatures {
         //Hotkeys
         bvngeeAddonsOpenGui.getKeybind().setCallback(BvngeeAddonsConfigGui::onOpenGui);
 
-
     }
 
 }
