@@ -1,6 +1,6 @@
 package bvngeeaddons.mixins.creativeInteractCauldronFix;
 
-import bvngeeaddons.config.BvngeeAddonsFeatures;
+import bvngeeaddons.util.creativeInteractCauldronFix.ItemSwapReverser;
 import net.minecraft.block.AbstractCauldronBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.cauldron.CauldronBehavior;
@@ -17,21 +17,21 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(AbstractCauldronBlock.class)
 public class AbstractCauldronBlockMixin {
 
-    int slotNumber = -1;
+    //public int slotNumber = -1;
 
     @Inject(method = "onUse", at = @At(value = "HEAD"))
-    private void head(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<CauldronBehavior> cir) {
-        if (world.isClient) slotNumber = player.getInventory().getEmptySlot();
+    private void updateSlotNumber(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<CauldronBehavior> cir) {
+        if (ItemSwapReverser.shouldSwap(world, player)) ItemSwapReverser.slotNumber = player.getInventory().getEmptySlot();
     }
 
-    @Inject(method = "onUse", at = @At(value = "RETURN"))
-    private void tail(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<CauldronBehavior> cir) {
-        if (world.isClient && player.getAbilities().creativeMode && BvngeeAddonsFeatures.creativeInteractCauldronFix.getBooleanValue()) {
-            // ??? \/
-            //works on server!
-            player.getInventory().getStack(0).setCount(0);
-            System.out.println("hi " + slotNumber);
-        }
-    }
+//    @Inject(method = "onUse", at = @At(value = "RETURN"))
+//    private void tail(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<CauldronBehavior> cir) {
+//        if (world.isClient && player.getAbilities().creativeMode && BvngeeAddonsFeatures.creativeInteractCauldronFix.getBooleanValue()) {
+//            // ??? \/
+//            //works on server!
+//            System.out.println("hi " + slotNumber);
+//            player.getInventory().getStack(slotNumber).setCount(0);
+//        }
+//    }
 
 }

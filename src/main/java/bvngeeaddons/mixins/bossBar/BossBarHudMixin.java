@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.*;
 
 @Mixin(BossBarHud.class)
-public abstract class BossBarHudMixin {
+public class BossBarHudMixin {
 
     @Shadow @Final private MinecraftClient client;
     @Shadow @Final private static int WIDTH;
@@ -38,33 +38,13 @@ public abstract class BossBarHudMixin {
     private Iterator<ClientBossBar> bossBarListRedirect(Collection<ClientBossBar> values) {
 
         final List<ClientBossBar> newList = values.stream().toList();
-        if (isConfigChanged() || /*Arrays.deepEquals(allBossBars.toArray(), newList.toArray())*/!allBossBars.equals(newList)) {
+        if (isConfigChanged() || !allBossBars.equals(newList)) {
             allBossBars = new ArrayList<>(newList.stream().map(this::bossBarCopy).toList());
             updateBossBarList();
         }
 
         return filterBossBarTypes(renderedBossBars).iterator();
 
-    }
-
-    //todo: move to another class for rendering related utils?
-    @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/Window;getScaledWidth()I", shift = At.Shift.BEFORE))
-    private void bossBarScalePush(MatrixStack matrices, CallbackInfo ci) {
-        final double factor = BvngeeAddonsFeatures.bossBarScale.getDoubleValue();
-        matrices.push();
-        matrices.translate(-client.getWindow().getScaledWidth() / 2d * factor, 0, 0);
-        matrices.scale((float) factor, (float) factor, 1);
-        matrices.translate(client.getWindow().getScaledWidth() / 2d / factor, 0, 0);
-    }
-
-    @Inject(method = "render", at = @At(value = "TAIL"))
-    private void bossBarScalePop(MatrixStack matrices, CallbackInfo ci) {
-        matrices.pop();
-    }
-
-    @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/Window;getScaledHeight()I"))
-    private int fixBossBarLimit(Window window) {
-        return (int) (window.getScaledHeight() / BvngeeAddonsFeatures.bossBarScale.getDoubleValue());
     }
 
     private void updateBossBarList() {
@@ -87,12 +67,11 @@ public abstract class BossBarHudMixin {
 
         }
 
-        //renderedBossBars = renderedBossBars.stream().map(this::bossBarCopy).toList();
-
     }
 
 
     private ClientBossBar compactModeLabel(ClientBossBar bossBar) {
+
         List<ClientBossBar> bossBars = colorToBossBars.get(bossBar.getColor());
         List<ClientBossBar> namedBossBars = new ArrayList<>(), unnamedBossBars = new ArrayList<>();
         bossBars.forEach(k -> {
