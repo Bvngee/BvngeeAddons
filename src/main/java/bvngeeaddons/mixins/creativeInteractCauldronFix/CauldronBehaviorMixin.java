@@ -16,8 +16,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.function.Predicate;
 
-import static bvngeeaddons.util.creativeInteractCauldronFix.ItemSwapReverser.reverseItemSwap;
-
 @Mixin(CauldronBehavior.class)
 public interface CauldronBehaviorMixin {
 
@@ -33,21 +31,21 @@ public interface CauldronBehaviorMixin {
 
     //none of this works to remove the generated item - I think it's because the function has to actually return,
     //send a packet to the server to give you a new item, then send a packet back confirming it, before the item actually spawns,
-    //at which point you can finally remove it on the client. Not sure tho, needs testing... also ItemSwapReverser is done very shittily so stop lazi and redo that pls haha
+    //at which point you can finally remove it on the client. Not sure tho, needs testing... also ItemSwapReverser is done very shittily so stop lazi redo that pls haha
 
     @Inject(method = {"method_32222", "method_32220", "method_32219"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/util/ActionResult;success(Z)Lnet/minecraft/util/ActionResult;"))
     private static void inject1(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack, CallbackInfoReturnable<ActionResult> cir) {
-        reverseItemSwap(world, player);
+
     }
 
     @Inject(method = "fillCauldron", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/ActionResult;success(Z)Lnet/minecraft/util/ActionResult;"))
     private static void inject2(World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack, BlockState state, SoundEvent soundEvent, CallbackInfoReturnable<ActionResult> cir) {
-        reverseItemSwap(world, player);
+
     }
 
     @Inject(method = "emptyCauldron", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/ActionResult;success(Z)Lnet/minecraft/util/ActionResult;"))
     private static void inject3(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack, ItemStack output, Predicate<BlockState> predicate, SoundEvent soundEvent, CallbackInfoReturnable<ActionResult> cir) {
-        reverseItemSwap(world, player);
+
     }
 
 }

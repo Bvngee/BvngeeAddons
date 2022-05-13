@@ -1,6 +1,6 @@
 package bvngeeaddons.mixins.creativeInteractCauldronFix;
 
-import bvngeeaddons.util.creativeInteractCauldronFix.ItemSwapReverser;
+import bvngeeaddons.util.feature.creativeInteractCauldronFix.ItemSwapReverseHelper;
 import net.minecraft.block.AbstractCauldronBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.cauldron.CauldronBehavior;
@@ -21,7 +21,7 @@ public class AbstractCauldronBlockMixin {
 
     @Inject(method = "onUse", at = @At(value = "HEAD"))
     private void updateSlotNumber(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<CauldronBehavior> cir) {
-        if (ItemSwapReverser.shouldSwap(world, player)) ItemSwapReverser.slotNumber = player.getInventory().getEmptySlot();
+        ItemSwapReverseHelper.onCauldronUse(world, player);
     }
 
 //    @Inject(method = "onUse", at = @At(value = "RETURN"))

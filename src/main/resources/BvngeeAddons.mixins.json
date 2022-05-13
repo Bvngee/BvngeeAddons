@@ -9,7 +9,7 @@
   "client": [
     "bossBar.BossBarHudMixin",
     "bossBarScale.BossBarHudMixin",
-    "creativeInteractCauldronFix.CauldronBehaviorMixin",
+    "creativeInteractCauldronFix.ClientPlayNetworkHandlerMixin",
     "creativeInteractCauldronFix.AbstractCauldronBlockMixin",
     "removeAutoJumpButton.ClientPlayerEntityMixin",
     "removeAutoJumpButton.ControlsOptionsScreenMixin"
