@@ -1,6 +1,6 @@
-package bvngeeaddons.mixins.creativeInteractCauldronFix;
+package bvngeeaddons.mixins.creativeInteractCauldronMultiplayerFix;
 
-import bvngeeaddons.util.feature.creativeInteractCauldronFix.ItemSwapReverseHelper;
+import bvngeeaddons.util.feature.creativeInteractCauldronMultiplayerFix.ItemSwapReverseHelper;
 import net.minecraft.block.AbstractCauldronBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.cauldron.CauldronBehavior;
@@ -17,21 +17,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(AbstractCauldronBlock.class)
 public class AbstractCauldronBlockMixin {
 
-    //public int slotNumber = -1;
-
     @Inject(method = "onUse", at = @At(value = "HEAD"))
     private void updateSlotNumber(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<CauldronBehavior> cir) {
-        ItemSwapReverseHelper.onCauldronUse(world, player);
+        if (world.isClient) ItemSwapReverseHelper.onCauldronUse(player);
     }
-
-//    @Inject(method = "onUse", at = @At(value = "RETURN"))
-//    private void tail(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<CauldronBehavior> cir) {
-//        if (world.isClient && player.getAbilities().creativeMode && BvngeeAddonsFeatures.creativeInteractCauldronFix.getBooleanValue()) {
-//            // ??? \/
-//            //works on server!
-//            System.out.println("hi " + slotNumber);
-//            player.getInventory().getStack(slotNumber).setCount(0);
-//        }
-//    }
 
 }

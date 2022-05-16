@@ -13,6 +13,9 @@ public class BvngeeAddonsFeatures {
     @Config(type = Config.Type.GENERIC, category = Config.Category.FIXES)
     public static final BvngeeAddonsConfigBoolean creativeInteractCauldronFix = new BvngeeAddonsConfigBoolean("creativeInteractCauldronFix", false);
 
+    @Config(type = Config.Type.GENERIC, category = Config.Category.FIXES)
+    public static final BvngeeAddonsConfigBoolean creativeInteractCauldronMultiplayerFix = new BvngeeAddonsConfigBoolean("creativeInteractCauldronMultiplayerFix", false);
+
 
     //---------------FEATURES---------------
 
