@@ -11,8 +11,7 @@ public class ItemSwapReverseHelper {
     private static int slotNumber = -1;
     
     public static void onScreenHandlerSlotUpdate(ScreenHandlerSlotUpdateS2CPacket packet, MinecraftClient client) {
-        if (packet.getSlot() == slotNumber && shouldSwap(client.player) && client.player != null && client.interactionManager != null) {
-            System.out.println("new: reverse attempt at " + slotNumber);
+        if (packet.getSlot() == slotNumber && shouldRemoveJunkItem(client.player) && client.player != null && client.interactionManager != null) {
             client.player.getInventory().setStack(slotNumber, ItemStack.EMPTY);
             client.interactionManager.clickCreativeStack(ItemStack.EMPTY, slotNumber);
         }
@@ -20,13 +19,13 @@ public class ItemSwapReverseHelper {
     }
 
     public static void onCauldronUse(PlayerEntity player) {
-        if (shouldSwap(player)) {
+        if (shouldRemoveJunkItem(player)) {
             final int emptySlot = player.getInventory().getEmptySlot();
             slotNumber = (emptySlot < 9 ? 36 + emptySlot : emptySlot);
         }
     }
 
-    public static boolean shouldSwap(PlayerEntity player) {
+    private static boolean shouldRemoveJunkItem(PlayerEntity player) {
         return !MinecraftClient.getInstance().isInSingleplayer()
                 && player.getAbilities().creativeMode
                 && BvngeeAddonsFeatures.creativeInteractCauldronFix.getBooleanValue()

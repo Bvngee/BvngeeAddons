@@ -38,8 +38,7 @@ public class BvngeeAddonsFeaturesHandler {
 
     @SuppressWarnings("unchecked")
     public static <T extends IConfigBase> List<T> getFeaturesOfType(Config.Type type){
-        final List<T> features = (List<T>) getOptionsOfType(type).stream().map(BvngeeAddonsOption::getConfig).toList();
-        return features == null ? new ArrayList<>() : features;
+        return (List<T>) getOptionsOfType(type).stream().map(BvngeeAddonsOption::getConfig).toList();
     }
 
     public static List<BvngeeAddonsOption> getOptionsOfCategory(Config.Category category){
@@ -49,8 +48,7 @@ public class BvngeeAddonsFeaturesHandler {
 
     @SuppressWarnings("unchecked")
     public static <T extends IConfigBase> List<T> getFeaturesOfCategory(Config.Category category){
-        final List<T> features = (List<T>) getOptionsOfCategory(category).stream().map(BvngeeAddonsOption::getConfig).toList();
-        return features == null ? new ArrayList<>() : features;
+        return (List<T>) getOptionsOfCategory(category).stream().map(BvngeeAddonsOption::getConfig).toList();
     }
 
     public static List<BvngeeAddonsIConfigBase> getConfigs(){
