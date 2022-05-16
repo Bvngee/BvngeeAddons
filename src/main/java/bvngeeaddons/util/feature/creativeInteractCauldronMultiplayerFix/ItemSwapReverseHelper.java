@@ -11,7 +11,7 @@ public class ItemSwapReverseHelper {
     private static int slotNumber = -1;
     
     public static void onScreenHandlerSlotUpdate(ScreenHandlerSlotUpdateS2CPacket packet, MinecraftClient client) {
-        if (packet.getSlot() == slotNumber && shouldSwap(client.player)) {
+        if (packet.getSlot() == slotNumber && shouldSwap(client.player) && client.player != null && client.interactionManager != null) {
             System.out.println("new: reverse attempt at " + slotNumber);
             client.player.getInventory().setStack(slotNumber, ItemStack.EMPTY);
             client.interactionManager.clickCreativeStack(ItemStack.EMPTY, slotNumber);
