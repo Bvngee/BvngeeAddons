@@ -13,7 +13,10 @@
     "creativeInteractCauldronMultiplayerFix.AbstractCauldronBlockMixin",
     "creativeInteractCauldronFix.CauldronBehaviorMixin",
     "removeAutoJumpButton.ClientPlayerEntityMixin",
-    "removeAutoJumpButton.ControlsOptionsScreenMixin"
+    "removeAutoJumpButton.ControlsOptionsScreenMixin",
+    "screenshotUtils.ChatHudMixin",
+    "core.chat.ScreenMixin",
+    "screenshotUtils.ScreenshotRecorderMixin"
   ],
   "injectors": {
     "defaultRequire": 1

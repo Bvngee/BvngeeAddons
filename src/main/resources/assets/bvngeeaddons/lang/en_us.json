@@ -16,6 +16,15 @@
   "bvngeeaddons.config.shown_boss_bar_types.wither": "Wither",
   "bvngeeaddons.config.shown_boss_bar_types.dragon": "Dragon",
 
+  "bvngeeaddons.config.screenshotUtils.chat_button.delete": "[DELETE]",
+  "bvngeeaddons.config.screenshotUtils.chat_button.rename": "[RENAME]",
+  "bvngeeaddons.config.screenshotUtils.chat_button.copy": "[COPY]",
+
+  "bvngeeaddons.config.screenshotUtils.deleted_string": "%s has been deleted!",
+  "bvngeeaddons.config.screenshotUtils.failed_deleted_string": "Could not delete file!",
+  "bvngeeaddons.config.screenshotUtils.renamed_string": "%s has been renamed to %s!",
+  "bvngeeaddons.config.screenshotUtils.failed_rename_string": "Could not rename file!",
+
   "bvngeeaddons.config.creativeInteractCauldronFix.comment": "Stops extra bottles or buckets being added to\nyour inventory when interacting with cauldron in\ncreative! §6NOTE: This feature works only in singleplayer!\nIdea: schmoe_mc",
   "bvngeeaddons.config.creativeInteractCauldronMultiplayerFix.comment": "When on servers, creativeInteractCauldronFix uses\na hacky version that works by manually editing\nthe inventory after interacting with cauldrons.",
   "bvngeeaddons.config.removeAutoJumpButton.comment": "Removes the Auto Jump button and disables Auto Jump.\nCuz why the fuck not?",
@@ -23,6 +32,7 @@
   "bvngeeaddons.config.shownBossBarType.comment": "Dictates whether to show the boss bars of only withers,\nonly dragons, or both",
   "bvngeeaddons.config.separateBossesWithNames.comment": "Separates all name tagged bosses when using the\nCompact or None bossBarRenderMode",
   "bvngeeaddons.config.bossBarScale.comment": "The scale from 0 to 1 at which to render all boss bars",
+  "bvngeeaddons.config.screenshotUtils.comment": "Adds UNDO and RENAME buttons next to the\nscreenshot log message in chat",
 
   "bvngeeaddons.config.openBvngeeAddonsGui.comment": "The hotkey used to open this gui"
 }

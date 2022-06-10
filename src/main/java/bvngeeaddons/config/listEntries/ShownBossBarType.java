@@ -3,7 +3,7 @@ package bvngeeaddons.config.listEntries;
 import fi.dy.masa.malilib.config.IConfigOptionListEntry;
 import fi.dy.masa.malilib.util.StringUtils;
 
-public enum ShownBossBarTypes implements IConfigOptionListEntry {
+public enum ShownBossBarType implements IConfigOptionListEntry {
 
     BOTH ("both", "bvngeeaddons.config.shown_boss_bar_types.both"),
     WITHER ("wither", "bvngeeaddons.config.shown_boss_bar_types.wither"),
@@ -12,7 +12,7 @@ public enum ShownBossBarTypes implements IConfigOptionListEntry {
     private final String configString;
     private final String translationKey;
 
-    ShownBossBarTypes(String configString, String translationKey) {
+    ShownBossBarType(String configString, String translationKey) {
         this.configString = configString;
         this.translationKey = translationKey;
     }
@@ -40,9 +40,9 @@ public enum ShownBossBarTypes implements IConfigOptionListEntry {
 
     @Override
     public IConfigOptionListEntry fromString(String value) {
-        for (ShownBossBarTypes type : ShownBossBarTypes.values()) {
+        for (ShownBossBarType type : ShownBossBarType.values()) {
             if (value.equalsIgnoreCase(type.configString)) return type;
         }
-        return ShownBossBarTypes.BOTH;
+        return ShownBossBarType.BOTH;
     }
 }

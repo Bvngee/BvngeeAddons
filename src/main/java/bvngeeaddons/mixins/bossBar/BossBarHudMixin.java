@@ -2,7 +2,7 @@ package bvngeeaddons.mixins.bossBar;
 
 import bvngeeaddons.config.BvngeeAddonsFeatures;
 import bvngeeaddons.config.listEntries.BossBarRenderMode;
-import bvngeeaddons.config.listEntries.ShownBossBarTypes;
+import bvngeeaddons.config.listEntries.ShownBossBarType;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.BossBarHud;
 import net.minecraft.client.gui.hud.ClientBossBar;
@@ -27,7 +27,7 @@ public class BossBarHudMixin {
     private List<ClientBossBar> renderedBossBars = new ArrayList<>();
 
     private BossBarRenderMode renderMode = (BossBarRenderMode) BvngeeAddonsFeatures.bossBarRenderMode.getOptionListValue();
-    private ShownBossBarTypes shownTypes = (ShownBossBarTypes) BvngeeAddonsFeatures.shownBossBarTypes.getOptionListValue();
+    private ShownBossBarType shownTypes = (ShownBossBarType) BvngeeAddonsFeatures.shownBossBarTypes.getOptionListValue();
     private boolean separateNamed = BvngeeAddonsFeatures.separateBossBarsWithNames.getBooleanValue();
 
     @Redirect(method = "render", at = @At(value = "INVOKE", target = "Ljava/util/Map;values()Ljava/util/Collection;", shift = At.Shift.AFTER))
@@ -114,7 +114,7 @@ public class BossBarHudMixin {
                 || BvngeeAddonsFeatures.separateBossBarsWithNames.getBooleanValue() != separateNamed
         ) {
             renderMode = (BossBarRenderMode) BvngeeAddonsFeatures.bossBarRenderMode.getOptionListValue();
-            shownTypes = (ShownBossBarTypes) BvngeeAddonsFeatures.shownBossBarTypes.getOptionListValue();
+            shownTypes = (ShownBossBarType) BvngeeAddonsFeatures.shownBossBarTypes.getOptionListValue();
             separateNamed = BvngeeAddonsFeatures.separateBossBarsWithNames.getBooleanValue();
             return true;
         } else {
@@ -123,9 +123,9 @@ public class BossBarHudMixin {
     }
 
     private List<ClientBossBar> filterBossBarTypes(List<ClientBossBar> bossBars) {
-        if (shownTypes == ShownBossBarTypes.WITHER) {
+        if (shownTypes == ShownBossBarType.WITHER) {
             return bossBars.stream().filter(k -> k.getColor() != BossBar.Color.PINK).toList();
-        } else if (shownTypes == ShownBossBarTypes.DRAGON) {
+        } else if (shownTypes == ShownBossBarType.DRAGON) {
             return bossBars.stream().filter(k -> k.getColor() != BossBar.Color.PURPLE).toList();
         } else { //Both
             return bossBars;

@@ -1,7 +1,7 @@
 package bvngeeaddons.config;
 
 import bvngeeaddons.config.listEntries.BossBarRenderMode;
-import bvngeeaddons.config.listEntries.ShownBossBarTypes;
+import bvngeeaddons.config.listEntries.ShownBossBarType;
 import bvngeeaddons.config.options.*;
 import bvngeeaddons.gui.BvngeeAddonsConfigGui;
 
@@ -26,13 +26,16 @@ public class BvngeeAddonsFeatures {
     public static final BvngeeAddonsConfigOptionList bossBarRenderMode = new BvngeeAddonsConfigOptionList("bossBarRenderMode", BossBarRenderMode.DEFAULT);
 
     @Config(type = Config.Type.GENERIC, category = Config.Category.FEATURES)
-    public static final BvngeeAddonsConfigOptionList shownBossBarTypes = new BvngeeAddonsConfigOptionList("shownBossBarType", ShownBossBarTypes.BOTH);
+    public static final BvngeeAddonsConfigOptionList shownBossBarTypes = new BvngeeAddonsConfigOptionList("shownBossBarType", ShownBossBarType.BOTH);
 
     @Config(type = Config.Type.GENERIC, category = Config.Category.FEATURES)
     public static final BvngeeAddonsConfigBoolean separateBossBarsWithNames = new BvngeeAddonsConfigBoolean("separateBossesWithNames", false);
 
     @Config(type = Config.Type.GENERIC, category = Config.Category.FEATURES)
     public static final BvngeeAddonsConfigDouble bossBarScale = new BvngeeAddonsConfigDouble("bossBarScale", 1);
+
+    @Config(type = Config.Type.GENERIC, category = Config.Category.FEATURES)
+    public static final BvngeeAddonsConfigBoolean screenshotUtils = new BvngeeAddonsConfigBoolean("screenshotUtils", false);
 
 
     //---------------SETTINGS----------------
