@@ -18,7 +18,7 @@ public class BvngeeAddons implements ClientModInitializer {
     public static final String MOD_NAME = "BvngeeAddons";
     public static String MOD_VERSION = "unknown";
 
-    public static final Logger LOGGER = LogManager.getLogger("BvngeeAddons");
+    private static final Logger LOGGER = LogManager.getLogger("BvngeeAddons");
 
     @Override
     public void onInitializeClient() {
@@ -36,5 +36,9 @@ public class BvngeeAddons implements ClientModInitializer {
             BvngeeAddonsFeatures.initCallbacks();
         });
 
+    }
+
+    public static Logger getLogger() {
+        return LOGGER;
     }
 }

@@ -16,6 +16,7 @@
     "removeAutoJumpButton.ControlsOptionsScreenMixin",
     "screenshotUtils.ChatHudMixin",
     "core.chat.ScreenMixin",
+    "core.awt.MainMixin",
     "screenshotUtils.ScreenshotRecorderMixin"
   ],
   "injectors": {

@@ -7,7 +7,8 @@
   "bvngeeaddons.gui.config_category.fixes": "Fixes",
   "bvngeeaddons.gui.config_category.settings": "Settings",
 
-  "bvngeeaddons.gui.screen.block_sounds_options_screen": "Block Sounds",
+  "bvngeeaddons.gui.screen.customBlockSounds.screenTitle": "Block Sounds",
+  "bvngeeaddons.gui.screen.screenshotUtils.renameScreen.title": "Rename Screenshot File",
 
   "bvngeeaddons.config.boss_bar_render_mode.default": "Default",
   "bvngeeaddons.config.boss_bar_render_mode.compact": "Compact",
@@ -20,10 +21,12 @@
   "bvngeeaddons.config.screenshotUtils.chat_button.rename": "[RENAME]",
   "bvngeeaddons.config.screenshotUtils.chat_button.copy": "[COPY]",
 
-  "bvngeeaddons.config.screenshotUtils.deleted_string": "%s has been deleted!",
+  "bvngeeaddons.config.screenshotUtils.deleted_string": "%s deleted!",
   "bvngeeaddons.config.screenshotUtils.failed_deleted_string": "Could not delete file!",
-  "bvngeeaddons.config.screenshotUtils.renamed_string": "%s has been renamed to %s!",
+  "bvngeeaddons.config.screenshotUtils.renamed_string": "%s renamed to %s!",
   "bvngeeaddons.config.screenshotUtils.failed_rename_string": "Could not rename file!",
+  "bvngeeaddons.config.screenshotUtils.copied_string": "%s copied to clipboard!",
+  "bvngeeaddons.config.screenshotUtils.failed_copied_string": "Could not copy to clipboard!",
 
   "bvngeeaddons.config.creativeInteractCauldronFix.comment": "Stops extra bottles or buckets being added to\nyour inventory when interacting with cauldron in\ncreative! §6NOTE: This feature works only in singleplayer!\nIdea: schmoe_mc",
   "bvngeeaddons.config.creativeInteractCauldronMultiplayerFix.comment": "When on servers, creativeInteractCauldronFix uses\na hacky version that works by manually editing\nthe inventory after interacting with cauldrons.",
