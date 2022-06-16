@@ -7,13 +7,13 @@ import java.io.File;
 
 public class ScreenshotTranslatableText extends TranslatableText {
 
-    private final File file;
+    private File file;
     private EditableChatHudLine<ScreenshotTranslatableText> parentChatHudLine;
 
-    public ScreenshotTranslatableText(TranslatableText text, String filePath, boolean withScreenshotUtilButtons) {
+    public ScreenshotTranslatableText(TranslatableText text, File file, boolean withScreenshotUtilButtons) {
         super(text.getKey(), text.getArgs());
 
-        this.file = new File(filePath);
+        this.file = file;
         if (withScreenshotUtilButtons) ScreenshotUtils.addScreenshotUtilButtons(this);
     }
 
@@ -21,12 +21,19 @@ public class ScreenshotTranslatableText extends TranslatableText {
         this.parentChatHudLine = chatHudLine;
     }
 
-    public File getFile() {
-        return this.file;
+    public void setFile(File file) {
+        this.file = file;
     }
 
-    public EditableChatHudLine<ScreenshotTranslatableText> getParentChatHudLine() {
-        return this.parentChatHudLine;
+    public void setText(TranslatableText text, boolean withScreenshotUtilButtons) {
+        EditableChatHudLine<ScreenshotTranslatableText> parentChatHudLine = this.parentChatHudLine;
+        ScreenshotTranslatableText newText = new ScreenshotTranslatableText(text, this.getFile(), withScreenshotUtilButtons);
+        newText.setParentChatHudLine(parentChatHudLine);
+        parentChatHudLine.setText(newText);
+    }
+
+    public File getFile() {
+        return this.file;
     }
 
 }

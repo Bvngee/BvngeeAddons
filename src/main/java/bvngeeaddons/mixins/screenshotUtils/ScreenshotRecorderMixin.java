@@ -11,6 +11,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
+import java.io.File;
+
 @Debug(export = true)
 @Mixin(ScreenshotRecorder.class)
 public class ScreenshotRecorderMixin {
@@ -20,7 +22,10 @@ public class ScreenshotRecorderMixin {
     private static <T> T test(T t) {
         TranslatableText original = (TranslatableText) t;
         LiteralText styledFileText = (LiteralText) original.getArgs()[0];
-        return (T) (BvngeeAddonsFeatures.screenshotUtils.getBooleanValue() ? new ScreenshotTranslatableText(original, ScreenshotUtils.SCREENSHOTS_DIR + styledFileText.getString(), true) : original);
+        return (T) (BvngeeAddonsFeatures.screenshotUtils.getBooleanValue() ?
+                new ScreenshotTranslatableText(original, new File(ScreenshotUtils.SCREENSHOTS_DIR + styledFileText.getString()), true)
+                : original
+        );
     }
 
 }
