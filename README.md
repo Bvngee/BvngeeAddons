@@ -1,6 +1,6 @@
 # BvngeeAddons
 
-My person set of client-side Minecraft modifications - random things that I've thought of over time that would be helpful for my (fairly technical) gameplay. Unfortunately hasn't been touched or updated since 1.17.1 because that's the version my server is still in.
+My personal set of client-side Minecraft modifications - random things that I've thought of over time that would be helpful for my (fairly technical) gameplay. Unfortunately hasn't been touched or updated since 1.17.1 because that's the version my server is still in.
 
 Uses Masa's MaLiLib for config gui; usage is shamelessly stolen from Fallen_Breath.
 
