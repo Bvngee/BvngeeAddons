@@ -7,7 +7,7 @@ Uses Masa's MaLiLib for config gui; usage is shamelessly stolen from Fallen_Brea
 ### ---------------FIXES-----------------
 
 
-- **creativeInteractCauldronFix:** Fixes the annoying behavior where in creative mode, right clicking on a full cauldron adds water bottles to your inventory. Idea from schmoe_mc. *NOTE: only works in singleplayer* (serverside fix).
+- **creativeInteractCauldronFix:** Fixes the annoying behavior where in creative mode, right clicking on a full cauldron adds water bottles to your inventory. Idea from schmoe_mc. *NOTE: only works in singleplayer.*
 
 - **creativeInteractCauldronMultiplayerFix:** Ridiculous client-side hack to fix the above behavior on servers as well, by watching for new water bottles after cauldron interactions. yeah, I know. Use at your own risk
 
